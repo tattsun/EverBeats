@@ -38,12 +38,26 @@ public class TubeDownloader : MonoBehaviour {
 	private IEnumerator Load()
 	{
 		Debug.Log("[BGM] LOAD STARTED..");
-		WWW www = new WWW("http://YouTubeInMP3.com/fetch/?video=http://www.youtube.com/watch?v=BDFD2WopIjY&lol=cmonunity.mp3");
-		yield return www; // 一度中断。読み込みが完了したら再開。
+		//get JSON
+/*
+		WWW json = new WWW("http://youtubeinmp3.com/fetch/?api=advanced&format=JSON&video=http://www.youtube.com/watch?v="+GameManager.gameData.videoid);
+		yield return json;
+		JSONResponse r = LitJson.JsonMapper.ToObject<JSONResponse> (json.text);
+		Debug.Log ("[BGN] data fetched :"+r.link);
+		WWW www = new WWW(r.link + "&dammy=dammy.mp3");*/
+		//WWW www = new WWW("http://YouTubeInMP3.com/fetch/?video=http://www.youtube.com/watch?v="+GameManager.gameData.videoid+ "&dammy=dammy.mp3");
+		WWW www = new WWW("http://kamasu.jp/everbeats/musics/test_bgm.mp3");
+		yield return www;
 		Camera.main.GetComponent<AudioSource> ().clip = (www.audioClip);
 		Debug.Log("[BGM] LOAD COMPLETE!");
 		if (myDelegate != null){
 			myDelegate();
 		}
+	}
+	[System.Serializable]
+	class JSONResponse {
+		public string title;
+		public string length;
+		public string link;
 	}
 }

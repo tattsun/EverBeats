@@ -8,12 +8,14 @@ public class GameData{
 	public string title;
 	public int lv;
 	public int length;
+	public string videoid;
 
 	public GameData (){
 		musicdata = "";
 		title = "Thunderclap";
 		lv = 11;
 		length = 100;
+		videoid = "FLUC8aINF1c";
 	}
 	public static GameData sampleData(){
 		GameData g = new GameData();

@@ -32,9 +32,9 @@ public class LoaderManager : MonoBehaviour {
 		loading_text.GetComponent<UIWidget>().alpha = Mathf.Abs(Mathf.Sin( Time.time - startedTime ));
 
 		if (forceDone) {
-			black_mask.GetComponent<UIAnchor>().relativeOffset += Vector2.right * Time.deltaTime * 0.5f;
+			black_mask.GetComponent<UIAnchor>().relativeOffset += Vector2.right * Time.deltaTime * 0.7f;
 		} else {
-			black_mask.GetComponent<UIAnchor>().relativeOffset = new Vector2( ( Time.time - startedTime )/20.0f ,black_mask.GetComponent<UIAnchor>().relativeOffset.y);
+			black_mask.GetComponent<UIAnchor>().relativeOffset = new Vector2( ( Time.time - startedTime )/10.0f ,black_mask.GetComponent<UIAnchor>().relativeOffset.y);
 		}
 		if (forceDone && black_mask.GetComponent<UIAnchor>().relativeOffset.x > 1.05f){
 			finishFrag = true;

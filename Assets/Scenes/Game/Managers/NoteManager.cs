@@ -7,6 +7,9 @@ public class NoteManager : MonoBehaviour {
 	static private float OK_TIME 			= 0.1f;
 	static private float GREAT_TIME 		= 0.05f;
 	static private float OK_DISTANCE		= 0.2f;
+	static private float LONG_PUSH_TIME		= 0.1f;
+	static private float LONG_PUSH_DISTANCE	= 0.1f;
+
 	static private float SCORE_MULTIPLIER	= 100f;
 
 
@@ -21,6 +24,7 @@ public class NoteManager : MonoBehaviour {
 	public Transform right;
 	public Transform generate;
 	public GameObject notePrehab;
+	public GameObject longNotePrehab;
 	
 	public List< MusicData.NoteData> notes;
 	private int index;
@@ -122,10 +126,11 @@ public class NoteManager : MonoBehaviour {
 	/*
 	 * EditMode
 	 */
-	public void addNote (float offset){
+	public void addNote (float offset , bool isLong = false){
 		MusicData.NoteData n = new MusicData.NoteData ();
 		n.time   = audio.time;
 		n.offset = offset;
+		n.isLong = isLong;
 		notes.Add (n);
 	}
 	public MusicData exportMusicData(){

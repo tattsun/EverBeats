@@ -35,6 +35,7 @@ public class MusicData {
 	public class NoteData {
 		public enum NotePhase { Normal , Great , Ok , Bad , Miss};
 
+		public bool isLong;
 		public float time;
 		public float offset;
 
