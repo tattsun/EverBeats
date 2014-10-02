@@ -754,6 +754,7 @@ Transform:
   - {fileID: 1496869846}
   - {fileID: 215007734}
   - {fileID: 1195344738}
+  - {fileID: 1071746035}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &390449782
@@ -1506,6 +1507,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 129971087}
   m_RootOrder: 0
+--- !u!1 &1071746033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+  m_PrefabInternal: {fileID: 1245534704}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1071746035}
+  - 114: {fileID: 1071746034}
+  m_Layer: 0
+  m_Name: ComboManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1071746034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1245534704}
+  m_GameObject: {fileID: 1071746033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f74683d155b41c4bbe843a50111f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numLabelPrehab: {fileID: 100000, guid: a75040f809efc4f4aa413d00c321d8bb, type: 2}
+  comboLabelPrehab: {fileID: 100000, guid: e595d0fc88ae6473e9ce842e52666ac9, type: 2}
+  startAnimInterval: .5
+  middleAnimInterval: .200000003
+  leaveAnimInterval: 2
+  endAnimInterval: .5
+  minComboNum: 1
+--- !u!4 &1071746035
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+  m_PrefabInternal: {fileID: 1245534704}
+  m_GameObject: {fileID: 1071746033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.74181676, y: 0, z: -7.2885046}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 339265705}
+  m_RootOrder: 4
 --- !u!1 &1110813381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,6 +2291,66 @@ MonoBehaviour:
   fitHeight: 1
   adjustByDPI: 0
   shrinkPortraitUI: 0
+--- !u!1001 &1245534704
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 339265705}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.74181676
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -7.2885046
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: comboLabelPrehab
+      value: 
+      objectReference: {fileID: 100000, guid: e595d0fc88ae6473e9ce842e52666ac9, type: 2}
+    - target: {fileID: 11400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: startAnimInterval
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: middleAnimInterval
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+      propertyPath: minComboNum
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7ed819dd2d68b4a66aa3d91308dbef9e, type: 2}
+  m_RootGameObject: {fileID: 1071746033}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1267330832
 GameObject:
   m_ObjectHideFlags: 0

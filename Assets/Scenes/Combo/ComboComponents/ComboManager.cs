@@ -5,7 +5,7 @@ using System;
 // コンボ数を表示して，そのコンボ数を呼び出し元に返します。
 public class ComboManager : MonoBehaviour {
 
-	internal ComboManager instance;
+	internal static ComboManager instance;
 
 	public GameObject numLabelPrehab;
 	public GameObject comboLabelPrehab;
@@ -29,7 +29,7 @@ public class ComboManager : MonoBehaviour {
 	public float leaveAnimInterval = 2.0f;
 	public float endAnimInterval = 0.5f;
 
-	private int minComboNum = 5;
+	public int minComboNum = 5;
 
 	private bool isStartAnimation = false;
 	private bool isMiddleAnimation = false;
