@@ -6,7 +6,6 @@ public class MusicData {
 
 	public List<NoteData> notes;
 
-
 	static public MusicData testnotes(){
 		return new MusicData( ((TextAsset)Resources.Load("note_sample")).text );
 	}
@@ -16,8 +15,11 @@ public class MusicData {
 		notes = new List<NoteData>();
 	}
 	public MusicData (string data){
-		string[] arr = ScreenUtil.sepalateByEnter (data);
 		notes = new List<NoteData> ();
+		if (data.Equals("")){
+			return;
+		}
+		string[] arr = ScreenUtil.sepalateByEnter (data);
 		foreach (string s in arr ){
 			notes.Add (new NoteData(s) );
 		}
@@ -33,6 +35,7 @@ public class MusicData {
 	public class NoteData {
 		public enum NotePhase { Normal , Great , Ok , Bad , Miss};
 
+		public bool isLong;
 		public float time;
 		public float offset;
 

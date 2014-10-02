@@ -3,14 +3,23 @@ using System.Collections;
 
 public class ChoiceManager : MonoBehaviour {
 
-	public static MusicData music = null;
+	public static GameData gameData = null;
 
 	// Use this for initialization
 	void Start () {
-		if (music == null){
-			music = new MusicData();
+		Application.targetFrameRate = -1;
+
+		if (gameData == null) {
+			string data = PlayerPrefs.GetString ("game-data");
+			if (data == null) {
+				gameData = new GameData ();
+			} else {
+				gameData = GameData.gameDataWithString (data);
+			}
+		} else {
+			PlayerPrefs.SetString ("game-data",gameData.ToString());
 		}
-		GameObject.Find ("textbox").GetComponent<UIInput>().value = music.ToString ();
+		GameObject.Find ("textbox").GetComponent<UIInput>().value = gameData.ToString ();
 	}
 	
 	// Update is called once per frame
@@ -19,20 +28,20 @@ public class ChoiceManager : MonoBehaviour {
 	}
 
 	public void Play(){
-		music = new MusicData (GameObject.Find ("textbox").GetComponent<UIInput>().value);
+		gameData =  GameData.gameDataWithString (GameObject.Find ("textbox").GetComponent<UIInput>().value);
 
+		GameManager.gameData = gameData;
 		GameManager.returnScene = "Choice";
 		NoteManager.isEditMode = false;
-		NoteManager.music = music;
 		Application.LoadLevel ("Game");
 	}
 	
 	public void Make(){
-		music = new MusicData ();
+		gameData = new GameData ();
 		
+		GameManager.gameData = gameData;
 		GameManager.returnScene = "Choice";
 		NoteManager.isEditMode = true;
-		NoteManager.music = music;
 		Application.LoadLevel ("Game");
 	}
 }

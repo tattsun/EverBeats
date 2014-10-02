@@ -4,9 +4,13 @@ using System.Collections.Generic;
 
 public class NoteManager : MonoBehaviour {
 	static private float REMOVE_OFFSET_TIME = 1;
-	static private float OK_TIME 		= 0.1f;
-	static private float GREAT_TIME 	= 0.05f;
-	static private float OK_DISTANCE	= 0.2f;
+	static private float OK_TIME 			= 0.1f;
+	static private float GREAT_TIME 		= 0.05f;
+	static private float OK_DISTANCE		= 0.2f;
+	static private float LONG_PUSH_TIME		= 0.1f;
+	static private float LONG_PUSH_DISTANCE	= 0.1f;
+
+	static private float SCORE_MULTIPLIER	= 100f;
 
 
 	static public bool isEditMode = false;
@@ -20,6 +24,7 @@ public class NoteManager : MonoBehaviour {
 	public Transform right;
 	public Transform generate;
 	public GameObject notePrehab;
+	public GameObject longNotePrehab;
 	
 	public List< MusicData.NoteData> notes;
 	private int index;
@@ -28,17 +33,17 @@ public class NoteManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audio = Camera.main.GetComponent<AudioSource> ();
-		if (music == null){
-			music = MusicData.testnotes ();
-		}
+		music = new MusicData(GameManager.gameData.musicdata);
 		index = 0;
 		notes = new List< MusicData.NoteData > ();
 		manager = this;
 	}
-
 	
 	// Update is called once per frame
 	void Update () {
+		if (!audio.isPlaying){
+			return;
+		}
 		if (isEditMode) {
 		} else {
 			if (music.notes.Count > index){
@@ -101,11 +106,16 @@ public class NoteManager : MonoBehaviour {
 			if (note.phase == MusicData.NoteData.NotePhase.Normal || note.phase == MusicData.NoteData.NotePhase.Miss){
 				if ( Mathf.Abs(note.time - audio.time) < OK_TIME  ){
 					if (  Mathf.Abs(note.offset - offset) < OK_DISTANCE ){
+						float score = Mathf.Abs(OK_TIME - Mathf.Abs(note.offset - offset))*SCORE_MULTIPLIER;
+						var type = MusicData.NoteData.NotePhase.Ok;
 						if (Mathf.Abs(note.time - audio.time) < GREAT_TIME){
-							note.gameObject.GetComponent<Note>().tapped( MusicData.NoteData.NotePhase.Great );
-						}else{
-							note.gameObject.GetComponent<Note>().tapped( MusicData.NoteData.NotePhase.Ok );
+							score *= 2;
+							type = MusicData.NoteData.NotePhase.Great;
 						}
+						note.gameObject.GetComponent<Note>().tapped( type );
+						score *= (Mathf.Log10(ComboManager.instance.GetCombo( type )) + 1 );
+						GameManager.score += (int)score;
+						ScoreManager.manager.leftPoint += (int)score;
 						break;
 					}
 				}
@@ -116,10 +126,11 @@ public class NoteManager : MonoBehaviour {
 	/*
 	 * EditMode
 	 */
-	public void addNote (float offset){
+	public void addNote (float offset , bool isLong = false){
 		MusicData.NoteData n = new MusicData.NoteData ();
 		n.time   = audio.time;
 		n.offset = offset;
+		n.isLong = isLong;
 		notes.Add (n);
 	}
 	public MusicData exportMusicData(){
