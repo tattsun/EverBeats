@@ -10,9 +10,8 @@ public class ComboManager : MonoBehaviour {
 	public GameObject numLabelPrehab;
 	public GameObject comboLabelPrehab;
 
-	// TODO ここは最終的には消します。最後のプレハブ化のときに
-	public GameObject numLabel; // コンボ数を表示する為のNGUI
-	public GameObject comboLabel; // コンボ数のよこを表示する為のNGUI
+	private GameObject numLabel; // コンボ数を表示する為のNGUI
+	private GameObject comboLabel; // コンボ数のよこを表示する為のNGUI
 
 	private int comboSum = 0;
 
@@ -49,6 +48,10 @@ public class ComboManager : MonoBehaviour {
 
 	void Start () {
 		instance = this;
+
+		numLabel = (GameObject)Instantiate(numLabelPrehab);
+		comboLabel = (GameObject)Instantiate(comboLabelPrehab);
+
 		defaultTextScale = comboLabel.GetComponent<UIStretch>().relativeSize.y;
 		defaultNumScale = numLabel.GetComponent<UIStretch>().relativeSize.y;
 		maxNumScale = defaultNumScale * 3.0f;
@@ -81,7 +84,6 @@ public class ComboManager : MonoBehaviour {
 
 			case AnimationPhase.End:
 			isStartAnimation = false;
-			isEndAnimation = true;
 			break;
 		}
 
@@ -206,13 +208,15 @@ public class ComboManager : MonoBehaviour {
 
 		if (!ok) {
 			comboSum = 0;
-			startTimer = 0.0f;
-			DefaultenGUI();
-			animationPhase = AnimationPhase.End;
+			if ((animationPhase != AnimationPhase.End) && (animationPhase != AnimationPhase.Nothing)) {
+				startTimer = 0.0f;
+				DefaultenGUI();
+				animationPhase = AnimationPhase.End;
+				isEndAnimation = true;
+			}
 			return;
 		}
 
-		isEndAnimation = false;
 		comboSum++;
 
 		if (comboSum < minComboNum) {

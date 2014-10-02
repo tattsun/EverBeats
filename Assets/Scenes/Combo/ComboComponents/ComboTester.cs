@@ -34,6 +34,16 @@ public class ComboTester : MonoBehaviour {
 
 		return;
 		*/
+
+		if (Input.GetKeyDown("a")){
+			Debug.Log("a");
+			comboManager.GetCombo(MusicData.NoteData.NotePhase.Ok);
+		} else if (Input.GetKeyDown("b")){
+			comboManager.GetCombo(MusicData.NoteData.NotePhase.Miss);
+		}
+
+		return;
+
 		float value = Random.value;
 		if (value > 0.90f){
 			if (value < 0.905f) {
