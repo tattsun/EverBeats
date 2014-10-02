@@ -21,17 +21,21 @@ public class ComboManager : MonoBehaviour {
 	private float maxTextScale;
 	private float defaultNumScale;
 	private float maxNumScale;
-	private Vector2 startOffset;
+	private float appearOffsetY;
+	private float defaultOffsetY;
 
 	// 設定定数フィールド
-	public float showLabelInterval = 1.0f;
+	public float startAnimInterval = 0.5f;
+	public float middleAnimInterval = 0.2f;
+	public float leaveAnimInterval = 2.0f;
+	public float endAnimInterval = 0.5f;
 
-	private float alphaPerSec = 0.01f;
-	private float textScalePerSec = 0.01f;
-	private float numScalePerSec = 0.01f;
 	private int minComboNum = 5;
 
 	private bool isStartAnimation = false;
+	private bool isMiddleAnimation = false;
+	private bool isEndAnimation = false;
+
 
 	private float startTimer = 0.0f;
 
@@ -48,13 +52,10 @@ public class ComboManager : MonoBehaviour {
 		defaultTextScale = comboLabel.GetComponent<UIStretch>().relativeSize.y;
 		defaultNumScale = numLabel.GetComponent<UIStretch>().relativeSize.y;
 		maxNumScale = defaultNumScale * 3.0f;
-		maxTextScale = defaultTextScale * 1.5f;
-
-		alphaPerSec = 1.0f / showLabelInterval;
-		textScalePerSec = (maxTextScale - defaultTextScale) / showLabelInterval;
-		numScalePerSec = (maxNumScale - defaultNumScale) / showLabelInterval;
+		maxTextScale = defaultTextScale * 3.0f;
+		defaultOffsetY = comboLabel.GetComponent<UIAnchor>().relativeOffset.y;
+		appearOffsetY = defaultOffsetY - 0.1f;
 		InitGUI();
-
 	}
 
 
@@ -70,40 +71,37 @@ public class ComboManager : MonoBehaviour {
 			break;
 
 			case AnimationPhase.Start:
+			isEndAnimation = false;
 			isStartAnimation = true;
-			setComboNumToGUI();
+			SetComboNumToGUI();
 			break;
 
 			case AnimationPhase.Middle:
-			setComboNumToGUI();
 			break;
 
 			case AnimationPhase.End:
-			InitGUI();
-			setComboNumToGUI();
+			isStartAnimation = false;
+			isEndAnimation = true;
 			break;
 		}
 
 		if (isStartAnimation) {
 			/* 透明度のアニメーション */
 			bool endAlpha = false;
-			float alpha = (alphaPerSec * Time.deltaTime) + comboLabel.GetComponent<UILabel>().color.a;
+			float alpha = GetTimeDuration(startAnimInterval);
 			// Debug.Log("alpha: " + alpha);
 
-			if (alpha > 1.0f){
-				alpha = 1.0f;
+			if (alpha > 0.99f){
 				endAlpha = true;
 			}
 
-			comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+			comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
 			numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
 
 			/* スケールのアニメーション */
 			bool endScale = false;
-			// float nowTextScale = (comboLabel.GetComponent<UIStretch>().relativeSize.y + defaultTextScale)/2.0f;
-			// float nowNumScale = (numLabel.GetComponent<UIStretch>().relativeSize.y + defaultNumScale)/2.0f;
-			float nowTextScale = maxTextScale - GetTimeDuration(3.0f)*Mathf.Abs(defaultTextScale - maxTextScale);
-			float nowNumScale = maxNumScale - GetTimeDuration(3.0f)*Mathf.Abs(defaultNumScale - maxNumScale);
+			float nowTextScale = maxTextScale - GetTimeDuration(startAnimInterval)*Mathf.Abs(defaultTextScale - maxTextScale);
+			float nowNumScale = maxNumScale - GetTimeDuration(startAnimInterval)*Mathf.Abs(defaultNumScale - maxNumScale);
 
 			comboLabel.GetComponent<UIStretch>().relativeSize.y = nowTextScale;
 			numLabel.GetComponent<UIStretch>().relativeSize.y = nowNumScale;
@@ -115,12 +113,42 @@ public class ComboManager : MonoBehaviour {
 			}
 
 			isStartAnimation = !(endScale && endAlpha);
+			Debug.Log("isStartAnimation: " + isStartAnimation);
 
 			if (!isStartAnimation){
 				startTimer = 0.0f;
+				animationPhase = AnimationPhase.Middle;
 			}
 
 			// Debug.Log("anima " + alpha + "," + nowTextScale + "," + nowNumScale);
+		}
+
+		if (isMiddleAnimation) {
+
+			float nowNumScale = maxNumScale - GetTimeDuration(middleAnimInterval)*Mathf.Abs(defaultNumScale - maxNumScale);
+			numLabel.GetComponent<UIStretch>().relativeSize.y = nowNumScale;
+			if (Mathf.Abs(nowNumScale - defaultNumScale) < 0.0001f) {
+				startTimer = 0.0f;
+				isMiddleAnimation = false;
+			}
+		}
+
+		if (isEndAnimation) {
+			/* 透明度のアニメーション */
+			float alpha = 1.0f - GetTimeDuration(endAnimInterval);
+
+			comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
+			numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
+
+			/* 位置のアニメーション */
+			float posY = defaultOffsetY - (Mathf.Abs(defaultOffsetY - appearOffsetY) * GetTimeDuration(endAnimInterval));
+			comboLabel.GetComponent<UIAnchor>().relativeOffset.y = posY;
+			numLabel.GetComponent<UIAnchor>().relativeOffset.y = posY;
+
+			if (Mathf.Abs(posY - appearOffsetY) < 0.01f) {
+				isEndAnimation = false;
+				animationPhase = AnimationPhase.Nothing;
+			}
 		}
 
 		ApplyAnimation();
@@ -128,8 +156,16 @@ public class ComboManager : MonoBehaviour {
 	}
 
 	private float GetTimeDuration(float duration) {
-		return (1-(1/(20*startTimer/duration+1)));
-		
+
+		float x;
+		if (startTimer < duration)
+			x = Mathf.Sin(Mathf.PI/2.0f/duration*startTimer);
+		else
+			x = 1.0f;
+
+		return x;
+		// return (1-(1/(20*startTimer/duration+1)));
+		// return (startTimer <= duration) ? startTimer / duration : duration;
 	}
 
 	public int GetCombo (MusicData.NoteData.NotePhase type){
@@ -170,12 +206,18 @@ public class ComboManager : MonoBehaviour {
 
 		if (!ok) {
 			comboSum = 0;
-			InitGUI();
-			animationPhase = AnimationPhase.Nothing;
+			startTimer = 0.0f;
+			DefaultenGUI();
+			animationPhase = AnimationPhase.End;
 			return;
 		}
 
+		isEndAnimation = false;
 		comboSum++;
+
+		if (comboSum < minComboNum) {
+			return;
+		}
 
 		// コンボ最低数以上に初めてなったとき
 		if (animationPhase == AnimationPhase.Nothing) {
@@ -184,10 +226,28 @@ public class ComboManager : MonoBehaviour {
 		}
 
 		if (animationPhase == AnimationPhase.Start) {
+			startTimer = 0.0f;
 			animationPhase = AnimationPhase.Middle;
 			return;
 		}
 
+		if (animationPhase == AnimationPhase.Middle) {
+			isMiddleAnimation = true;
+			startTimer = 0.0f;
+			SetComboNumToGUI();
+			DefaultenGUI();
+			return;
+		}
+
+	}
+
+	private void DefaultenGUI () {
+		comboLabel.GetComponent<UIStretch>().relativeSize.y = defaultTextScale;
+		numLabel.GetComponent<UIStretch>().relativeSize.y = defaultNumScale;
+		comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
+		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
 	}
 
 	/*
@@ -209,12 +269,11 @@ public class ComboManager : MonoBehaviour {
 		numLabel.GetComponent<UIStretch>().relativeSize.y = maxNumScale;
 		comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
 		numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
+		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
 	}
 
-	private void setComboNumToGUI (){
-		if (comboSum < minComboNum){
-			return;
-		}
+	private void SetComboNumToGUI (){
 		numLabel.GetComponent<UILabel>().text = comboSum.ToString();
 	} 
 

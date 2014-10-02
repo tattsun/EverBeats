@@ -8,10 +8,32 @@ public class ComboTester : MonoBehaviour {
 
 	void Start () {
 		comboManager = comboManagerObject.GetComponent<ComboManager>();
-		//comboManager.GetCombo(MusicData.NoteData.NotePhase.Ok);
+		comboManager.GetCombo(MusicData.NoteData.NotePhase.Ok);
 	}
+
+	bool test = true;
+	float timer = 0.0f;
+	int intTimer = 0;
+	int prevTimer = 0;
 	
 	void Update () {
+		/*
+		timer += Time.deltaTime;
+		intTimer = (int)timer;
+
+		if (intTimer == prevTimer) 
+			return;
+
+		prevTimer = intTimer;
+
+		if (intTimer > 1 && intTimer < 14) {
+				comboManager.GetCombo(MusicData.NoteData.NotePhase.Ok);
+		} else if (intTimer == 14) {
+				comboManager.GetCombo(MusicData.NoteData.NotePhase.Miss);
+		} 
+
+		return;
+		*/
 		float value = Random.value;
 		if (value > 0.90f){
 			if (value < 0.905f) {
