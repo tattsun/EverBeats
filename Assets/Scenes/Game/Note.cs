@@ -4,6 +4,7 @@ using System.Collections;
 public class Note : MonoBehaviour {
 	public MusicData.NoteData data;
 	public Material greatMaterial;
+	public Material greatLongMaterial;
 	public Material failedMaterial;
 	public Material okMaterial;
 	public GameObject effectPrehab;
@@ -28,15 +29,34 @@ public class Note : MonoBehaviour {
 		if (ScreenUtil.findObject (transform, "flare") != null){
 			Destroy(ScreenUtil.findObject (transform, "flare"));
 		}
-
-		if (phase == MusicData.NoteData.NotePhase.Great) {
+		if (!data.isLong) {
+			if (phase == MusicData.NoteData.NotePhase.Great) {
+				transform.position = correctPos;
+				gameObject.renderer.material = greatMaterial;
+				iTween.ScaleTo (gameObject, iTween.Hash ("x", 1.5f, "time", 0.5f));
+			} else {
+				gameObject.renderer.material = okMaterial;
+			}
+			iTween.FadeTo (gameObject, iTween.Hash ("alpha", 0, "time", 0.5f));
+		} else {
+			renderer.enabled = false;
+		}
+		/*
+		if (data.isLong){
+			transform.position = correctPos;
+			gameObject.renderer.material = greatLongMaterial;
+			iTween.ScaleTo (gameObject, iTween.Hash ("x", 1.5f, "time", 0.2f));
+			iTween.ScaleTo (gameObject, iTween.Hash ("x", 1.5f, "time", 0.2f));
+		} else if (phase == MusicData.NoteData.NotePhase.Great) {
 			transform.position = correctPos;
 			gameObject.renderer.material = greatMaterial;
 			iTween.ScaleTo (gameObject, iTween.Hash ("x", 1.5f, "time", 0.5f));
+			iTween.FadeTo (gameObject, iTween.Hash ("alpha", 0, "time", 0.5f));
 		} else {
 			gameObject.renderer.material = okMaterial;
-		}
-		iTween.FadeTo(gameObject, iTween.Hash("alpha", 0, "time", 0.5f));
+			iTween.FadeTo (gameObject, iTween.Hash ("alpha", 0, "time", 0.5f));
+		}*/
+
 	}
 	
 	public void missed(){

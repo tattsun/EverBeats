@@ -65,9 +65,6 @@ public class ComboManager : MonoBehaviour {
 	void Update () {
 
 		startTimer += Time.deltaTime;
-
-		Debug.Log("Now Phase: <color=green>" + animationPhase + "</color>");
-
 		switch (animationPhase) {
 			case AnimationPhase.Nothing:
 			InitGUI();
@@ -105,8 +102,8 @@ public class ComboManager : MonoBehaviour {
 			float nowTextScale = maxTextScale - GetTimeDuration(startAnimInterval)*Mathf.Abs(defaultTextScale - maxTextScale);
 			float nowNumScale = maxNumScale - GetTimeDuration(startAnimInterval)*Mathf.Abs(defaultNumScale - maxNumScale);
 
-			comboLabel.GetComponent<UIStretch>().relativeSize.y = nowTextScale;
-			numLabel.GetComponent<UIStretch>().relativeSize.y = nowNumScale;
+			//comboLabel.GetComponent<UIStretch>().relativeSize.y = nowTextScale;
+			//numLabel.GetComponent<UIStretch>().relativeSize.y = nowNumScale;
 
 			if (Mathf.Abs(nowTextScale - defaultTextScale) < 0.0001f && Mathf.Abs(nowNumScale - defaultNumScale) < 0.0001f) {
 				comboLabel.GetComponent<UIStretch>().relativeSize.y = defaultTextScale;
@@ -115,7 +112,6 @@ public class ComboManager : MonoBehaviour {
 			}
 
 			isStartAnimation = !(endScale && endAlpha);
-			Debug.Log("isStartAnimation: " + isStartAnimation);
 
 			if (!isStartAnimation){
 				startTimer = 0.0f;
@@ -172,7 +168,6 @@ public class ComboManager : MonoBehaviour {
 
 	public int GetCombo (MusicData.NoteData.NotePhase type){
 
-		Debug.Log("Get Combo type: " + type);
 		bool ok = true;
 
 		//  Normal , Great , Ok , Bad , Miss

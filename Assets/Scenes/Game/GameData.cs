@@ -18,9 +18,7 @@ public class GameData{
 		videoid = "FLUC8aINF1c";
 	}
 	public static GameData sampleData(){
-		GameData g = new GameData();
-		g.musicdata = MusicData.testnotes ().ToString ();
-		return g;
+		return gameDataWithString(PlayerPrefs.GetString ("game-data"));
 	}
 
 	public static GameData gameDataWithString(string str){

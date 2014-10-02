@@ -44,6 +44,9 @@ public class MusicData {
 		public NotePhase phase;
 		public Vector3 tappedPosition;
 		public float tappedTime;
+		/* edit */
+		public int tapCount;
+		public int fingerId;
 
 
 		public NoteData (){
@@ -51,12 +54,13 @@ public class MusicData {
 		}
 		public NoteData (string data){
 			string[] arr = data.Split(new string[]{ "," } , System.StringSplitOptions.None);
-			time = float.Parse(arr[0]);
-			offset = float.Parse(arr[1]);
+			isLong = arr[0].Equals("y");
+			time = float.Parse(arr[1]);
+			offset = float.Parse(arr[2]);
 			phase = NotePhase.Normal;
 		}
 		public string ToString(){
-			return time + "," + offset;
+			return (isLong?"y":"n") + "," + time + "," + offset;
 		}
 	}
 }
