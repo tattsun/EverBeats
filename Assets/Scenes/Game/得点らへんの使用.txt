@@ -1,0 +1,3 @@
+PointManager
+得点とコンボ数を表示する為のManager
+
