@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Glass3
-  m_Shader: {fileID: 4800000, guid: e02c92f4904e5d34da15bb4ec6a96695, type: 3}
+  m_Name: okMaterial
+  m_Shader: {fileID: 10512, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -29,14 +29,14 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Cube
+          name: _Mask
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _NormalMap
+          name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -44,50 +44,54 @@ Material:
     m_Floats:
       data:
         first:
+          name: _Cutoff
+        second: .5
+      data:
+        first:
           name: _Shininess
-        second: 1.99999976
+        second: .00999999978
       data:
         first:
-          name: _ReflectionStrength
-        second: 1.58571422
+          name: _Focus
+        second: -100
       data:
         first:
-          name: _ColorEmission
-        second: 2.08928561
+          name: _Parallax
+        second: .0199999996
       data:
         first:
-          name: _RefractiveStrength
-        second: 1.5
-      data:
-        first:
-          name: _Fresnel
+          name: _Strength
         second: 5
       data:
         first:
-          name: _ScrollX
-        second: .699999988
+          name: _Distance
+        second: .125
       data:
         first:
-          name: _ScrollY
-        second: .370000005
-      data:
-        first:
-          name: _RimPower
-        second: 1
-      data:
-        first:
-          name: _ColorIntensity
-        second: 3
+          name: _Brightness
+        second: 1.67857146
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .845588207, g: .647312403, b: 0, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Emission
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _SpecColor
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 0}
       data:
         first:
-          name: _RimColor
-        second: {r: 1, g: 1, b: 1, a: 1}
+          name: _Specular
+        second: {r: 1, g: 1, b: 1, a: 0}
+      data:
+        first:
+          name: _GlowColor
+        second: {r: .83088237, g: .83088237, b: .83088237, a: 0}
+      data:
+        first:
+          name: _MainColor
+        second: {r: 1, g: 1, b: 1, a: 0}
