@@ -239,7 +239,7 @@ public class ComboManager : MonoBehaviour {
 		//  Normal , Great , Ok , Bad , Miss
 		switch (type){
 			case MusicData.NoteData.NotePhase.Miss:
-			beatSprite.GetComponent<UISprite>().spriteName = "combo_miss";
+			beatSprite.GetComponent<UISprite>().spriteName = "";
 			ok = false;
 			break;
 
