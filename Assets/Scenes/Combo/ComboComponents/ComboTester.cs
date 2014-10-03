@@ -8,7 +8,6 @@ public class ComboTester : MonoBehaviour {
 
 	void Start () {
 		comboManager = comboManagerObject.GetComponent<ComboManager>();
-		comboManager.GetCombo(MusicData.NoteData.NotePhase.Ok);
 	}
 
 	bool test = true;
@@ -36,9 +35,12 @@ public class ComboTester : MonoBehaviour {
 		*/
 
 		if (Input.GetKeyDown("a")){
-			Debug.Log("a");
 			comboManager.GetCombo(MusicData.NoteData.NotePhase.Ok);
-		} else if (Input.GetKeyDown("b")){
+		} else if (Input.GetKeyDown("s")){
+			comboManager.GetCombo(MusicData.NoteData.NotePhase.Great);
+		} else if (Input.GetKeyDown("d")){
+			comboManager.GetCombo(MusicData.NoteData.NotePhase.Bad);
+		} else if (Input.GetKeyDown("f")){
 			comboManager.GetCombo(MusicData.NoteData.NotePhase.Miss);
 		}
 
