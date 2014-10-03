@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 306.5, y: 129.500015, z: 0}
+  m_LocalPosition: {x: 381.999969, y: 85.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   container: {fileID: 0}
   style: 3
   runOnlyOnce: 0
-  relativeSize: {x: 1.5, y: .100000001}
+  relativeSize: {x: 1.5, y: .075000003}
   initialSize: {x: 1, y: 1}
   borderPadding: {x: 0, y: 0}
   widgetContainer: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   container: {fileID: 0}
   side: 8
   runOnlyOnce: 0
-  relativeOffset: {x: .360000014, y: .270000011}
+  relativeOffset: {x: .425000012, y: .170000002}
   pixelOffset: {x: 0, y: 0}
   widgetContainer: {fileID: 0}
 --- !u!114 &11400004
@@ -96,14 +96,14 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 5
-  mWidth: 1276
-  mHeight: 48
+  mPivot: 4
+  mWidth: 1347
+  mHeight: 38
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 26.583334
+  aspectRatio: 35.4473686
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: a059ad74477ad4dacb1faea791860d21, type: 3}
   mFont: {fileID: 0}
