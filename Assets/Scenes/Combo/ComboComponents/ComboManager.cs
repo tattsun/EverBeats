@@ -35,6 +35,8 @@ public class ComboManager : MonoBehaviour {
 	public float leaveAnimInterval = 2.0f;
 	public float endAnimInterval = 0.5f;
 	public float lightAnimSpan = 0.3f;
+	public float lightMinSize = 0.1f;
+	public float lightMaxSize = 0.3f;
 
 	private int minComboNum = 5;
 
@@ -42,7 +44,6 @@ public class ComboManager : MonoBehaviour {
 	private bool isMiddleAnimation = false;
 	private bool isEndAnimation = false;
 	private bool isLightAnimation = false;
-	private bool isContinueLight = false;
 
 	private float startTimer = 0.0f;
 	private float lightTimer = 0.0f;
@@ -174,8 +175,10 @@ public class ComboManager : MonoBehaviour {
 
 			if (lightTimer < (lightAnimSpan/2)) {
 				light.GetComponent<UISprite>().color = new Color(1, 1, 1, GetTimeDuration(lightTimer,lightAnimSpan/2));
+				light.GetComponent<UIStretch>().relativeSize.x = lightMinSize + ((lightMaxSize - lightMinSize)*GetTimeDuration(lightTimer,lightAnimSpan/2));
 			} else {
 				light.GetComponent<UISprite>().color = new Color(1, 1, 1, 1.0f - GetTimeDuration(lightTimer-lightAnimSpan/2,lightAnimSpan/2));
+				light.GetComponent<UIStretch>().relativeSize.x = lightMinSize + ((lightMaxSize - lightMinSize)*(1.0f - GetTimeDuration(lightTimer-lightAnimSpan/2,lightAnimSpan/2)));
 			}
 
 			if (lightTimer >= lightAnimSpan) {
@@ -297,7 +300,7 @@ public class ComboManager : MonoBehaviour {
 
 		if (isLightAnimation) {
 			if (lightTimer >= (lightAnimSpan/2.0f)) {
-				isContinueLight = true;
+				lightTimer = lightAnimSpan/2.0f - (lightTimer - lightAnimSpan/2.0f);
 			}
 		} else {
 			isLightAnimation = true;

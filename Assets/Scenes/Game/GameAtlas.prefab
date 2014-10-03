@@ -102,10 +102,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
+    paddingLeft: 32
+    paddingRight: 34
+    paddingTop: 9
+    paddingBottom: 9
   - name: combo_great
     x: 1778
     y: 1977
@@ -115,10 +115,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
+    paddingLeft: 32
+    paddingRight: 33
+    paddingTop: 9
+    paddingBottom: 9
   - name: combo_light
     x: 1137
     y: 1650
@@ -141,10 +141,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 12
-    paddingRight: 11
-    paddingTop: 0
-    paddingBottom: 0
+    paddingLeft: 44
+    paddingRight: 45
+    paddingTop: 9
+    paddingBottom: 9
   - name: gage_rainbow
     x: 0
     y: 1393
