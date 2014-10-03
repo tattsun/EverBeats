@@ -85,8 +85,8 @@ public class ComboManager : MonoBehaviour {
 		maxTextScale = defaultTextScale * 3.0f;
 		defaultComboOffsetY = comboLabel.GetComponent<UIAnchor>().relativeOffset.y;
 		defaultNumOffsetY = numLabel.GetComponent<UIAnchor>().relativeOffset.y;
-		appearComboOffsetY = defaultComboOffsetY - 0.1f;
-		appearNumOffsetY = defaultNumOffsetY - 0.1f;
+		appearComboOffsetY = defaultComboOffsetY - 0.05f;
+		appearNumOffsetY = defaultNumOffsetY - 0.05f;
 		InitGUI();
 	}
 
