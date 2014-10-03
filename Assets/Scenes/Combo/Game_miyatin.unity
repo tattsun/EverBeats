@@ -2604,6 +2604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291185531315a477887ce9eaa7bcf8c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pausePrehab: {fileID: 0}
 --- !u!1 &1204531678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3375,7 +3376,7 @@ MonoBehaviour:
   generate: {fileID: 874033177}
   notePrehab: {fileID: 100000, guid: bcf3e32bcb96c400a9d82f6d46c73d98, type: 2}
   longNotePrehab: {fileID: 0}
-  audio: {fileID: 0}
+  index: 0
 --- !u!1 &1507646026
 GameObject:
   m_ObjectHideFlags: 0
@@ -4410,6 +4411,7 @@ MonoBehaviour:
   lightAnimSpan: .150000006
   lightMinSize: .100000001
   lightMaxSize: .300000012
+  minComboNum: 5
 --- !u!1 &2021701553
 GameObject:
   m_ObjectHideFlags: 0
