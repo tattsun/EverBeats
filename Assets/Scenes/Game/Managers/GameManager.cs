@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	}
 	void Start () {
 		score = 0;
+		GameObject.Find ("Title").GetComponent<UILabel> ().text = gameData.summery.title_en;
+		GameObject.Find ("Lv").GetComponent<UILabel> ().text = "lv " + gameData.summery.lv;
 	}
 
 	//call from loaderManager
@@ -31,9 +33,12 @@ public class GameManager : MonoBehaviour {
 
 	public void saveAndExit(){
 		if (NoteManager.isEditMode){
-			gameData.musicdata = NoteManager.manager.exportMusicData().ToString();
-			gameData.length = (int)NoteManager.manager.audio.time + 1;
-			ChoiceManager.gameData = gameData;
+			MusicData music = NoteManager.manager.exportMusicData();
+			gameData.musicdata = music.ToString();
+			gameData.summery.playtime = (int)NoteManager.manager.audio.time + 1;
+			gameData.summery.lv = music.GetLv(gameData.summery.playtime);
+			gameData.summery.date = ScreenUtil.dateConvert (System.DateTime.Now );
+			ChoiceManager.saveDebugData(gameData);
 		}
 		Application.LoadLevel (returnScene);
 	}

@@ -30,7 +30,7 @@ public class TubeDownloader : MonoBehaviour {
 		if (NoteManager.isEditMode) {
 			x = (max - min) * (NoteManager.manager.audio.time / NoteManager.manager.audio.clip.length) + min;
 		} else {	
-			x = (max - min )* (NoteManager.manager.audio.time / GameManager.gameData.length) + min;
+			x = (max - min )* (NoteManager.manager.audio.time / GameManager.gameData.summery.playtime) + min;
 		}
 		white_gage.GetComponent<UIAnchor>().relativeOffset = new Vector2(  x, white_gage.GetComponent<UIAnchor>().relativeOffset.y);
 	}
