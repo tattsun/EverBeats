@@ -14,11 +14,7 @@ public class ComboManager : MonoBehaviour {
 	public GameObject lightPrehab;
 	public GameObject lightExpo1;
 	public GameObject lightExpo2;
-	public Color combo0;
-	public Color combo25;
-	public Color combo50;
-	public Color combo75;
-	public Color combo100;
+	public Color[] combo;
 
 	private GameObject numLabel; // コンボ数を表示する為のNGUI
 	private GameObject comboLabel; // コンボ数のよこを表示する為のNGUI
@@ -343,25 +339,27 @@ public class ComboManager : MonoBehaviour {
 
 		if (comboSum % 25 == 0) {
 			Instantiate(lightExpo2);
+			maxNumScale = defaultNumScale * 3.0f;
 			comboNoticeLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultNoticeOffsetY;
 			comboNoticeLabel.GetComponent<UILabel>().spacingX = 0;
 			comboNoticeLabel.GetComponent<UILabel>().text = "combo " + comboSum;
 			isComboNoticeAnimation = true;
 		} else {
+			maxNumScale = defaultNumScale * 1.25f;
 			Instantiate(lightExpo1);
 		}
 
-		if (comboSum == 25) {
-			nowComboColor = combo25;
-		} else if (comboSum == 50) {
-			nowComboColor = combo50;
-		} else if (comboSum == 75) {
-			nowComboColor = combo75;
+		if (comboSum == 50) {
+			nowComboColor = combo[1];
 		} else if (comboSum == 100) {
-			nowComboColor = combo100;
-		} else if (comboSum == 0){
-			nowComboColor = combo0;
-		}
+			nowComboColor = combo[2];
+		} else if (comboSum == 200) {
+			nowComboColor = combo[3];
+		} else if (comboSum == 300) {
+			nowComboColor = combo[4];
+		} else if (comboSum == 1){
+			nowComboColor = combo[0];
+		} 
 
 		numLabel.GetComponent<UILabel>().text = comboSum.ToString();
 	} 
