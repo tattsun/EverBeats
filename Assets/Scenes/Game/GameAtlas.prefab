@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Black
-    x: 1778
-    y: 1948
+    x: 1826
+    y: 1897
     width: 16
     height: 16
     borderLeft: 0
@@ -65,6 +65,84 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_bad
+    x: 1865
+    y: 1950
+    width: 52
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 50
+    paddingRight: 50
+    paddingTop: 9
+    paddingBottom: 9
+  - name: combo_excellent
+    x: 1778
+    y: 2004
+    width: 152
+    height: 44
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_good
+    x: 1778
+    y: 1950
+    width: 86
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_great
+    x: 1778
+    y: 1977
+    width: 87
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_light
+    x: 1137
+    y: 1650
+    width: 237
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_miss
+    x: 1866
+    y: 1977
+    width: 63
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 12
+    paddingRight: 11
     paddingTop: 0
     paddingBottom: 0
   - name: gage_rainbow
@@ -94,8 +172,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mini
-    x: 1778
-    y: 1965
+    x: 1826
+    y: 1914
     width: 35
     height: 35
     borderLeft: 0
@@ -108,7 +186,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: stop
     x: 1778
-    y: 2001
+    y: 1902
     width: 47
     height: 47
     borderLeft: 0

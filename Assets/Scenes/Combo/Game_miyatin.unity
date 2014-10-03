@@ -583,6 +583,10 @@ Prefab:
       propertyPath: aspectRatio
       value: 35.4473686
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e595d0fc88ae6473e9ce842e52666ac9, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e595d0fc88ae6473e9ce842e52666ac9, type: 2}
   m_RootGameObject: {fileID: 2100907780}
@@ -848,7 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b5bd8d2e1bcbe4580036799fb6ca41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiCamera: {fileID: 1267330836}
+  uiCamera: {fileID: 0}
   container: {fileID: 0}
   style: 3
   runOnlyOnce: 0
@@ -2236,6 +2240,10 @@ Prefab:
     - target: {fileID: 11400002, guid: a75040f809efc4f4aa413d00c321d8bb, type: 2}
       propertyPath: relativeOffset.y
       value: .254999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a75040f809efc4f4aa413d00c321d8bb, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a75040f809efc4f4aa413d00c321d8bb, type: 2}
@@ -4173,7 +4181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2100907781
 MonoBehaviour:
   m_ObjectHideFlags: 0
