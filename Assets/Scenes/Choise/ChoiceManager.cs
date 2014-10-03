@@ -10,12 +10,15 @@ public class ChoiceManager : MonoBehaviour {
 		Application.targetFrameRate = -1;
 		selected = loadDebugData ().Length - 1;
 		gameData = loadDebugData ()[ selected ] ;
+		if ( getDataFromDate( loadDebugData() , "2000-01-01 00:00:00" ) == null){
+			saveDebugData(GameData.gameDataWithString(((TextAsset)Resources.Load("note_sample")).text));
+		}
 		reflesh ();
 	}
 	void reflesh(){
 		MusicData.Level lv = new MusicData (gameData.musicdata).GetLvObj (gameData.summery.playtime);
 		GameObject.Find ("mainlabel").GetComponent<UILabel> ().text = 
-			"曲名　　　　:"+gameData.summery.title+"\n作成日　　　:"+gameData.summery.date+"\nレベル　　　:"+lv.lv+"\n密度ポイント:"+lv.pt_dens+"\n時間ポイント:"+lv.pt_time+"\n長打ポイント:"+lv.pt_long;
+			"曲名　　　　:"+gameData.summery.title+"\n作成日　　　:"+gameData.summery.date+"\nハイスコア　:"+gameData.summery.highScore+"\n時間　　　　:"+gameData.summery.playtime/60+":"+gameData.summery.playtime%60+"\nレベル　　　:"+lv.lv+"\n密度ポイント:"+lv.pt_dens+"\n時間ポイント:"+lv.pt_time+"\n長打ポイント:"+lv.pt_long;
 		GameObject.Find ("textbox").GetComponent<UIInput>().value = gameData.ToString ();
 	}
 	public void next (){
@@ -29,12 +32,24 @@ public class ChoiceManager : MonoBehaviour {
 		reflesh ();
 	}
 	public void delete (){
-		PlayerPrefs.SetString ("GameData" , PlayerPrefs.GetString("GameData").Replace( gameData.ToString() , "" ) );
+		DeleteData (gameData);
 		selected = Mathf.Max (0, selected - 1);
 		gameData = loadDebugData ()[selected];
 		reflesh ();
 	}
-
+	public static void DeleteData( GameData d ){
+		GameData[] ds = loadDebugData ();
+		GameData target = getDataFromDate (ds , d.summery.date);
+		GameData[] newds = new GameData [ds.Length - 1];
+		int i = 0;
+		foreach ( GameData d2 in ds ){
+			if (d2 != target){
+				newds[i] = d2; 
+				i++;
+			}
+		}
+		replaceDebugDatas(newds);
+	}
 	public static GameData[] loadDebugData(){
 		GameData[] debug;
 		try{
@@ -55,10 +70,28 @@ public class ChoiceManager : MonoBehaviour {
 		}
 		PlayerPrefs.SetString ("GameData", datas + "<!SEPALATOR!>" + data.ToString ());
 	}
+	public static void replaceDebugDatas( GameData[] datas ){
+		string[] strs = new string[datas.Length];
+		for ( int i= 0 ; i<datas.Length ; i++ ){
+			strs[i] = datas[i].ToString();
+		}
+		PlayerPrefs.SetString ("GameData", ScreenUtil.Join(strs , "<!SEPALATOR!>"));
+	}
+	public static GameData getDataFromDate( GameData[] datas , string date){
+		foreach ( GameData g in datas ){
+			if (g.summery.date.Equals(date)){
+				return g;
+			}
+		}
+		Debug.LogWarning ("DATA NOT FOUND!");
+		return null;
+	}
+
 
 	public void Play(){
 		GameManager.gameData = gameData;
-		GameManager.returnScene = "Choice";
+		GameManager.returnScene = "Result";
+		ResultManager.returnScene = "Choice";
 		NoteManager.isEditMode = false;
 		Application.LoadLevel ("Game");
 	}

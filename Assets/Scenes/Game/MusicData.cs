@@ -54,7 +54,7 @@ public class MusicData {
 			int long_num = notes.Count - copy.Count;
 			
 			float dens = ((float)copy.Count)/playtime;  //note per second
-			pt_dens = Mathf.Max( 0,(dens*7.0f - 20 )*10  );
+			pt_dens = Mathf.Max( 0,(dens*7.0f - 20 )*1.7f );
 			Debug.Log ("[LEVEL] dens :"+dens + " ->point:" + pt_dens);
 			
 			/* playtime */

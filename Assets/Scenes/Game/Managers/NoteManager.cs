@@ -13,7 +13,6 @@ public class NoteManager : MonoBehaviour {
 
 
 	static public bool isEditMode = false;
-	static public MusicData music;
 	static public NoteManager manager;
 	
 	public float Interval = 1;
@@ -25,9 +24,11 @@ public class NoteManager : MonoBehaviour {
 	public GameObject notePrehab;
 	public GameObject longNotePrehab;
 	
-	public List< MusicData.NoteData> notes;
+	internal List< MusicData.NoteData> notes;
+	internal AudioSource audio;
+	internal MusicData music;
+	
 	private int index;
-	public AudioSource audio;
 
 	// Use this for initialization
 	void Start () {
@@ -111,9 +112,14 @@ public class NoteManager : MonoBehaviour {
 						if (Mathf.Abs(note.time - audio.time) < GREAT_TIME ){
 							score *= 2;
 							type = MusicData.NoteData.NotePhase.Great;
+							GameManager.manager.result.great ++;
+						}else{
+							GameManager.manager.result.good ++;
 						}
 						note.gameObject.GetComponent<Note>().tapped( type );
-						score *= (Mathf.Log10(ComboManager.instance.GetCombo( type )) + 1 );
+						int combo = ComboManager.instance.GetCombo( type );
+						GameManager.manager.result.maxCombo = Mathf.Max(GameManager.manager.result.maxCombo , combo);
+						score *= (Mathf.Log10(combo) + 1 );
 						if (note.isLong){
 							score *= 0.2f;
 						}

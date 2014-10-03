@@ -15,6 +15,7 @@ public class SummeryData{
 	public int pv_count;
 	public int playtime;
 	public int lv;
+	public int highScore;
 	public string date;
 
 	public static SummeryData sample(){
@@ -26,9 +27,10 @@ public class SummeryData{
 		s.artist = "Fear, and Loathing in Las Vegas";
 		s.authername = "Kamasu";
 		s.autherid = "FagkwR24g";
-		s.pv_count = 45;
+		s.pv_count = 0;
 		s.playtime = 65;
 		s.lv = 4;
+		s.highScore = 0;
 		s.date = ScreenUtil.dateConvert (System.DateTime.Now );
 		return s;
 	}
