@@ -5,7 +5,7 @@ using System;
 // コンボ数を表示して，そのコンボ数を呼び出し元に返します。
 public class ComboManager : MonoBehaviour {
 
-	internal ComboManager instance;
+	internal static ComboManager instance;
 
 	public GameObject numLabelPrehab;
 	public GameObject comboLabelPrehab;
@@ -20,8 +20,10 @@ public class ComboManager : MonoBehaviour {
 	private float maxTextScale;
 	private float defaultNumScale;
 	private float maxNumScale;
-	private float appearOffsetY;
-	private float defaultOffsetY;
+	private float appearNumOffsetY;
+	private float appearComboOffsetY;
+	private float defaultNumOffsetY;
+	private float defaultComboOffsetY;
 
 	// 設定定数フィールド
 	public float startAnimInterval = 0.5f;
@@ -56,8 +58,10 @@ public class ComboManager : MonoBehaviour {
 		defaultNumScale = numLabel.GetComponent<UIStretch>().relativeSize.y;
 		maxNumScale = defaultNumScale * 3.0f;
 		maxTextScale = defaultTextScale * 3.0f;
-		defaultOffsetY = comboLabel.GetComponent<UIAnchor>().relativeOffset.y;
-		appearOffsetY = defaultOffsetY - 0.1f;
+		defaultComboOffsetY = comboLabel.GetComponent<UIAnchor>().relativeOffset.y;
+		defaultNumOffsetY = numLabel.GetComponent<UIAnchor>().relativeOffset.y;
+		appearComboOffsetY = defaultComboOffsetY - 0.1f;
+		appearNumOffsetY = defaultNumOffsetY - 0.1f;
 		InitGUI();
 	}
 
@@ -143,11 +147,13 @@ public class ComboManager : MonoBehaviour {
 			numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
 
 			/* 位置のアニメーション */
-			float posY = defaultOffsetY - (Mathf.Abs(defaultOffsetY - appearOffsetY) * GetTimeDuration(endAnimInterval));
-			comboLabel.GetComponent<UIAnchor>().relativeOffset.y = posY;
-			numLabel.GetComponent<UIAnchor>().relativeOffset.y = posY;
+			float numY = defaultNumOffsetY - (Mathf.Abs(defaultNumOffsetY - appearNumOffsetY) * GetTimeDuration(endAnimInterval));
+			float comboY = defaultComboOffsetY - (Mathf.Abs(defaultComboOffsetY - appearComboOffsetY) * GetTimeDuration(endAnimInterval));
 
-			if (Mathf.Abs(posY - appearOffsetY) < 0.01f) {
+			comboLabel.GetComponent<UIAnchor>().relativeOffset.y = comboY;
+			numLabel.GetComponent<UIAnchor>().relativeOffset.y = numY;
+
+			if (Mathf.Abs(numY - appearNumOffsetY) < 0.01f && Mathf.Abs(comboY - appearComboOffsetY) < 0.01f) {
 				isEndAnimation = false;
 				animationPhase = AnimationPhase.Nothing;
 			}
@@ -250,8 +256,8 @@ public class ComboManager : MonoBehaviour {
 		numLabel.GetComponent<UIStretch>().relativeSize.y = defaultNumScale;
 		comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 		numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
-		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
+		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultComboOffsetY;
+		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultNumOffsetY;
 	}
 
 	/*
@@ -273,8 +279,8 @@ public class ComboManager : MonoBehaviour {
 		numLabel.GetComponent<UIStretch>().relativeSize.y = maxNumScale;
 		comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
 		numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
-		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
-		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultOffsetY;
+		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultComboOffsetY;
+		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultNumOffsetY;
 	}
 
 	private void SetComboNumToGUI (){
