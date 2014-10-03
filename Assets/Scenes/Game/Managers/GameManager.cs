@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 	static public string returnScene;
@@ -7,7 +8,11 @@ public class GameManager : MonoBehaviour {
 	static public int score;
 	static public GameData gameData;
 
-	public ResultData result;
+	public GameObject pausePrehab;
+	internal ResultData result;
+
+	GameObject pause_btn;
+	bool nowPausing;
 	bool endFrag = false;
 
 
@@ -20,14 +25,20 @@ public class GameManager : MonoBehaviour {
 	}
 	void Start () {
 		score = 0;
+		nowPausing = false;
 		result = new ResultData ();
 		GameObject.Find ("Title").GetComponent<UILabel> ().text = gameData.summery.title_en;
 		GameObject.Find ("Lv").GetComponent<UILabel> ().text = "lv " + gameData.summery.lv;
+		pause_btn = GameObject.Find ("pause_btn");
+		pause_btn.SetActive (false);
 	}
 
 	//call from loaderManager
 	public void DoneLoading(){
 		Camera.main.GetComponent<AudioSource> ().Play ();
+		pause_btn.SetActive (true);
+		ScreenUtil.moveUI(pause_btn, new Vector2(-0.1f , 0) , 0.5f, ScreenUtil.CURVEMODE_EASEOUT , false , 0 , true);
+		ScreenUtil.fadeUI(pause_btn, 0.5f , 0 , 0 , 1 );
 	}
 	
 	// Update is called once per frame
@@ -38,6 +49,39 @@ public class GameManager : MonoBehaviour {
 			});
 			endFrag = true;
 		}
+	}
+
+	public void Pause(){
+		if (!nowPausing){
+			ScreenUtil.moveUI(pause_btn, new Vector2(0.1f , 0) , 0.5f, ScreenUtil.CURVEMODE_EASEOUT , true , 0 , false);
+			ScreenUtil.fadeUI(pause_btn, 0.5f , 0 , 1 , 0 );
+			nowPausing = true;
+			Instantiate (pausePrehab);
+			NoteManager.manager.audio.Pause();
+		}
+	}
+	public void OnPauseRestored(){
+		if (nowPausing){
+			pause_btn.SetActive(true);
+			ScreenUtil.moveUI(pause_btn, new Vector2(-0.1f , 0) , 0.5f, ScreenUtil.CURVEMODE_EASEOUT , false , 0 , true);
+			ScreenUtil.fadeUI(pause_btn, 0.5f , 0 , 0 , 1 );
+			nowPausing = false;
+			NoteManager.manager.audio.Play();
+		}
+	}
+
+	public void Retry(){
+		NoteManager.manager.audio.time = 0;
+		NoteManager.manager.notes.RemoveAll ((MusicData.NoteData n) => {
+			Destroy(n.gameObject);
+			return true;
+		});
+		ComboManager.instance.GetCombo (MusicData.NoteData.NotePhase.Miss);
+		NoteManager.manager.music = new MusicData (gameData.musicdata);
+		NoteManager.manager.index = 0;
+
+		result = new ResultData ();
+		score = 0;
 	}
 
 	public void saveAndExit(){

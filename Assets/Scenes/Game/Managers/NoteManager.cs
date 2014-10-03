@@ -28,7 +28,7 @@ public class NoteManager : MonoBehaviour {
 	internal AudioSource audio;
 	internal MusicData music;
 	
-	private int index;
+	public int index;
 
 	// Use this for initialization
 	void Start () {

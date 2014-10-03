@@ -76,6 +76,9 @@ public class ScreenUtil : MonoBehaviour {
 					Destroy(resentBlackOut);
 					resentBlackOut = null;
 				}
+				if (TargetObj.GetComponent<UIButton> () != null ){
+					TargetObj.GetComponent<UIButton> ().defaultColor = Color.white;
+				}
 				Destroy(gameObject);
 			}
 		}else if (mode == MODE_BLACKOUT){

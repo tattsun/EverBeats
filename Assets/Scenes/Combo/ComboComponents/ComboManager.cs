@@ -167,7 +167,6 @@ public class ComboManager : MonoBehaviour {
 	}
 
 	public int GetCombo (MusicData.NoteData.NotePhase type){
-
 		bool ok = true;
 
 		//  Normal , Great , Ok , Bad , Miss

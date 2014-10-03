@@ -54,9 +54,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: backtitle
+    x: 1137
+    y: 1602
+    width: 157
+    height: 157
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Black
-    x: 1778
-    y: 1948
+    x: 1173
+    y: 1427
     width: 16
     height: 16
     borderLeft: 0
@@ -68,7 +81,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gage_rainbow
-    x: 0
+    x: 641
     y: 1393
     width: 1024
     height: 2
@@ -81,7 +94,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gage_white
-    x: 0
+    x: 641
     y: 1396
     width: 1024
     height: 11
@@ -94,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mini
-    x: 1778
-    y: 1965
+    x: 1137
+    y: 1408
     width: 35
     height: 35
     borderLeft: 0
@@ -106,9 +119,48 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: pause_back
+    x: 1137
+    y: 1760
+    width: 512
+    height: 288
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: resume
+    x: 1137
+    y: 1444
+    width: 157
+    height: 157
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: retry
+    x: 1295
+    y: 1602
+    width: 157
+    height: 157
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: stop
-    x: 1778
-    y: 2001
+    x: 1295
+    y: 1554
     width: 47
     height: 47
     borderLeft: 0
@@ -120,8 +172,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: upper
-    x: 1137
-    y: 1889
+    x: 0
+    y: 1248
     width: 640
     height: 159
     borderLeft: 0
