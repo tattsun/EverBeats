@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: backtitle
-    x: 1375
-    y: 1602
+    x: 1650
+    y: 1891
     width: 157
     height: 157
     borderLeft: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: resume
     x: 1375
-    y: 1444
+    y: 1602
     width: 157
     height: 157
     borderLeft: 0
@@ -224,8 +224,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: retry
-    x: 1650
-    y: 1891
+    x: 1375
+    y: 1444
     width: 157
     height: 157
     borderLeft: 0
