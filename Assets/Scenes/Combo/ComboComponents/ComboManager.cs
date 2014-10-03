@@ -11,6 +11,13 @@ public class ComboManager : MonoBehaviour {
 	public GameObject comboLabelPrehab;
 	public GameObject beatSpritePrehab;
 	public GameObject lightPrehab;
+	public GameObject lightExpo1;
+	public GameObject lightExpo2;
+	public Color combo0;
+	public Color combo25;
+	public Color combo50;
+	public Color combo75;
+	public Color combo100;
 
 	private GameObject numLabel; // コンボ数を表示する為のNGUI
 	private GameObject comboLabel; // コンボ数のよこを表示する為のNGUI
@@ -28,6 +35,7 @@ public class ComboManager : MonoBehaviour {
 	private float appearComboOffsetY;
 	private float defaultNumOffsetY;
 	private float defaultComboOffsetY;
+	private Color nowComboColor = new Color(1,1,1,1);
 
 	// 設定定数フィールド
 	public float startAnimInterval = 0.5f;
@@ -112,8 +120,8 @@ public class ComboManager : MonoBehaviour {
 				endAlpha = true;
 			}
 
-			comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
-			numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
+			comboLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, alpha);
+			numLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, alpha);
 
 			/* スケールのアニメーション */
 			bool endScale = false;
@@ -154,8 +162,8 @@ public class ComboManager : MonoBehaviour {
 			/* 透明度のアニメーション */
 			float alpha = 1.0f - GetTimeDuration(startTimer, endAnimInterval);
 
-			comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
-			numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, alpha);
+			comboLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, alpha);
+			numLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, alpha);
 
 			/* 位置のアニメーション */
 			float numY = defaultNumOffsetY - (Mathf.Abs(defaultNumOffsetY - appearNumOffsetY) * GetTimeDuration(startTimer, endAnimInterval));
@@ -169,15 +177,15 @@ public class ComboManager : MonoBehaviour {
 				animationPhase = AnimationPhase.Nothing;
 			}
 		}
-
+		return;
 		if (isLightAnimation) {
 			lightTimer += Time.deltaTime;
 
 			if (lightTimer < (lightAnimSpan/2)) {
-				light.GetComponent<UISprite>().color = new Color(1, 1, 1, GetTimeDuration(lightTimer,lightAnimSpan/2));
+				light.GetComponent<UISprite>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, GetTimeDuration(lightTimer,lightAnimSpan/2));
 				light.GetComponent<UIStretch>().relativeSize.x = lightMinSize + ((lightMaxSize - lightMinSize)*GetTimeDuration(lightTimer,lightAnimSpan/2));
 			} else {
-				light.GetComponent<UISprite>().color = new Color(1, 1, 1, 1.0f - GetTimeDuration(lightTimer-lightAnimSpan/2,lightAnimSpan/2));
+				light.GetComponent<UISprite>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, 1.0f - GetTimeDuration(lightTimer-lightAnimSpan/2,lightAnimSpan/2));
 				light.GetComponent<UIStretch>().relativeSize.x = lightMinSize + ((lightMaxSize - lightMinSize)*(1.0f - GetTimeDuration(lightTimer-lightAnimSpan/2,lightAnimSpan/2)));
 			}
 
@@ -280,8 +288,8 @@ public class ComboManager : MonoBehaviour {
 	private void DefaultenGUI () {
 		comboLabel.GetComponent<UIStretch>().relativeSize.y = defaultTextScale;
 		numLabel.GetComponent<UIStretch>().relativeSize.y = defaultNumScale;
-		comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-		numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		comboLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, 1.0f);
+		numLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, 1.0f);
 		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultComboOffsetY;
 		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultNumOffsetY;
 	}
@@ -290,8 +298,8 @@ public class ComboManager : MonoBehaviour {
 		isStartAnimation=false;
 		comboLabel.GetComponent<UIStretch>().relativeSize.y = maxTextScale;
 		numLabel.GetComponent<UIStretch>().relativeSize.y = maxNumScale;
-		comboLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
-		numLabel.GetComponent<UILabel>().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+		comboLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, 0.0f);
+		numLabel.GetComponent<UILabel>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, 0.0f);
 		comboLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultComboOffsetY;
 		numLabel.GetComponent<UIAnchor>().relativeOffset.y = defaultNumOffsetY;
 	}
@@ -304,6 +312,24 @@ public class ComboManager : MonoBehaviour {
 			}
 		} else {
 			isLightAnimation = true;
+		}
+
+		if (comboSum % 25 == 0) {
+			Instantiate(lightExpo2);
+		} else {
+			Instantiate(lightExpo1);
+		}
+
+		if (comboSum == 25) {
+			nowComboColor = combo25;
+		} else if (comboSum == 50) {
+			nowComboColor = combo50;
+		} else if (comboSum == 75) {
+			nowComboColor = combo75;
+		} else if (comboSum == 100) {
+			nowComboColor = combo100;
+		} else if (comboSum == 0){
+			nowComboColor = combo0;
 		}
 
 		numLabel.GetComponent<UILabel>().text = comboSum.ToString();
