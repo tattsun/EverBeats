@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Choise/Choice.unity
   - enabled: 1
     path: Assets/Scenes/Game/Game.unity
+  - enabled: 1
+    path: Assets/Scenes/Result/Result.unity

@@ -53,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106709}
-  m_LocalPosition: {x: -2.09958315, y: -.982672691, z: -2.28757906}
+  m_LocalPosition: {x: -3.82207966, y: -3.34186506, z: 10.4795866}
   m_LocalScale: {x: .649925768, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
@@ -110,7 +110,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
-  m_Flare: {fileID: 12100000, guid: bb50652546d961e48b8933a3da29ead9, type: 2}
+  m_Flare: {fileID: 12100000, guid: 14f08f118d8db47f6b8fc34b1bfd5f06, type: 2}
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greatMaterial: {fileID: 2100000, guid: 0167ff6600d4a488f90d6172842c4516, type: 2}
+  greatLongMaterial: {fileID: 2100000, guid: 67ce0590b477849ddbf246499e2b31e1, type: 2}
   failedMaterial: {fileID: 2100000, guid: 3ab50862e33ac4806ba07404744f5473, type: 2}
   okMaterial: {fileID: 2100000, guid: 03d801de609df4f9faaf90f27ae8a77b, type: 2}
   effectPrehab: {fileID: 100000, guid: 21dd7f8f000384300a7be3fd294a36db, type: 2}

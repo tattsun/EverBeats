@@ -5,22 +5,15 @@ using LitJson;
 [System.Serializable]
 public class GameData{
 	public string musicdata;
-	public string title;
-	public int lv;
-	public int length;
-	public string videoid;
+	public SummeryData summery;
+
 
 	public GameData (){
 		musicdata = "";
-		title = "Thunderclap";
-		lv = 11;
-		length = 100;
-		videoid = "FLUC8aINF1c";
+		summery = SummeryData.sample ();
 	}
 	public static GameData sampleData(){
-		GameData g = new GameData();
-		g.musicdata = MusicData.testnotes ().ToString ();
-		return g;
+		return ChoiceManager.loadDebugData () [0];
 	}
 
 	public static GameData gameDataWithString(string str){
