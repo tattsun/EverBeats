@@ -2206,20 +2206,25 @@ MonoBehaviour:
   lightPrehab: {fileID: 100000, guid: 82a483b1f55bd4249b546cd097da9080, type: 2}
   lightExpo1: {fileID: 100000, guid: f6a5c5ccc193f4530a727765afcb7f08, type: 2}
   lightExpo2: {fileID: 100000, guid: c097e4e7777b14fe1baad66c9beafa6f, type: 2}
-  combo:
+  comboColor:
   - {r: 1, g: 1, b: 1, a: 0}
-  - {r: .411764681, g: 1, b: .586206853, a: 0}
-  - {r: .492647052, g: .853042603, b: 1, a: 0}
-  - {r: 1, g: .714959443, b: .433823526, a: 0}
-  - {r: 1, g: .470588207, b: .470588207, a: 0}
+  - {r: .573529422, g: 1, b: .735294223, a: 0}
+  - {r: .463235319, g: .644624829, b: 1, a: 0}
+  - {r: 1, g: .90770793, b: .522058845, a: 0}
+  - {r: 1, g: .536764741, b: .536764741, a: 0}
+  badBeatColor: {r: .735294104, g: 0, b: 0, a: 0}
+  noticeMoveDistance: .100000001
+  beatMoveDistance: .0700000003
   startAnimInterval: .5
   middleAnimInterval: .200000003
-  leaveAnimInterval: 2
   endAnimInterval: .5
   lightAnimSpan: .300000012
   lightMinSize: .100000001
   lightMaxSize: .300000012
-  minComboNum: 1
+  beatMoveInterval: .300000012
+  beatBiginHide: 1
+  beatHideInterval: .100000001
+  minComboNum: 10
 --- !u!4 &1071746035
 Transform:
   m_ObjectHideFlags: 0

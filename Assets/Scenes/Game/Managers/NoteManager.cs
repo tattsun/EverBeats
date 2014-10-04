@@ -139,9 +139,8 @@ public class NoteManager : MonoBehaviour {
 			if (note.phase == MusicData.NoteData.NotePhase.Normal || note.phase == MusicData.NoteData.NotePhase.Miss){
 				if ( Mathf.Abs(note.time - audio.time) < GREAT_TIME  ){
 					if (  Mathf.Abs(note.offset - offset) < OK_DISTANCE ){
-						var type = MusicData.NoteData.NotePhase.Great;
-						note.gameObject.GetComponent<Note>().tapped( type );
-						float score = OK_TIME*SCORE_MULTIPLIER * 2 * 0.2f * (Mathf.Log10(ComboManager.instance.GetCombo( type )) + 1 );;
+						note.gameObject.GetComponent<Note>().tapped( MusicData.NoteData.NotePhase.Great );
+						float score = OK_TIME*SCORE_MULTIPLIER * 2 * 0.2f * (Mathf.Log10(ComboManager.instance.GetCombo( MusicData.NoteData.NotePhase.Long )) + 1 );;
 						GameManager.score += (int)score;
 						ScoreManager.manager.leftPoint += (int)score;
 						GameManager.manager.result.great ++;

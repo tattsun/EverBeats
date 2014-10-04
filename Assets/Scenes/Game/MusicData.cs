@@ -71,7 +71,7 @@ public class MusicData {
 		}
 	}
 	public class NoteData {
-		public enum NotePhase { Normal , Great , Ok , Bad , Miss};
+		public enum NotePhase { Normal , Great , Ok , Bad , Miss , Long};
 
 		public bool isLong;
 		public float time;
