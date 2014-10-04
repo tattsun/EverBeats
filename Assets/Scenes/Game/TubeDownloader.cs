@@ -41,8 +41,10 @@ public class TubeDownloader : MonoBehaviour {
 		//get JSON
 		string url = null;
 		if (!GameManager.gameData.summery.videoid.Equals (GameData.sampleData ().summery.videoid)) {
+			LoaderManager.estimate_time = 30;
 			Debug.Log ("[BGM] video id :" + GameManager.gameData.summery.videoid);
-			WWW json = new WWW ("http://youtubeinmp3.com/fetch/?api=advanced&format=JSON&video=http://www.youtube.com/watch?v=" + GameManager.gameData.summery.videoid);
+			Debug.LogWarning ("http://youtubeinmp3.com/fetch/?video=http://www.youtube.com/watch?v=" + GameManager.gameData.summery.videoid);
+			WWW json = new WWW ("http://YoutubeInMP3.com/fetch/?api=advanced&format=JSON&video=http://www.youtube.com/watch?v=" + GameManager.gameData.summery.videoid);
 			yield return json;
 			Debug.Log ("[BGM] data fetched :" + json.text);
 			JSONResponse r = null;
@@ -52,14 +54,24 @@ public class TubeDownloader : MonoBehaviour {
 				GameManager.gameData.summery.title_en = r.title;
 				url = r.link + "&dammy=dammy.mp3";
 			}catch{
-				Debug.LogWarning ("Info not found");
+				//Debug.LogWarning ("VIDEO-Info not found");
+				//string url_2 = ScreenUtil.SearchAndGetString(json.text , "<a style='width:150px;height:30px;font-size:12px;margin-top:25px;' class='download' href='" , "'>Convert And<br /> Download MP3</a><br />") ; 
+				//if ( url_2 != null ){
+				//	Debug.Log ("VIDEO-URL found!");
+				//	url = url_2 + "&dammy=dammy.mp3";
+				//}else{
+				Debug.LogWarning ("VIDEO-URL NOR found!");
 				GameManager.gameData.summery.title = "Unknown";
 				GameManager.gameData.summery.title_en = "Unknown";
-				url = "http://YouTubeInMP3.com/fetch/?video=http://www.youtube.com/watch?v="+GameManager.gameData.summery.videoid+ "&dammy=dammy.mp3";
+
+				url = "http://youtubeinmp3.com/fetch/?video=http://www.youtube.com/watch?v="+GameManager.gameData.summery.videoid;
+				//}
 			}
 		} else {
+			LoaderManager.estimate_time = 10;
 			url = "http://kamasu.jp/everbeats/musics/test_bgm.mp3";
 		}
+		Debug.LogWarning (url);
 		WWW www = new WWW(url);
 		//WWW www = new WWW("http://YouTubeInMP3.com/fetch/?video=http://www.youtube.com/watch?v="+GameManager.gameData.videoid+ "&dammy=dammy.mp3");
 		yield return www;

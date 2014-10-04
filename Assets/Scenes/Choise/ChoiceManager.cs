@@ -11,12 +11,25 @@ public class ChoiceManager : MonoBehaviour {
 		EndFrag = false;
 		selected = loadDebugData ().Length - 1;
 		gameData = loadDebugData ()[ selected ] ;
-		if ( getDataFromDate( loadDebugData() , "2000-01-01 00:00:00" ) == null){
+		GameData[] datas = loadDebugData ();
+		if ( getDataFromDate( datas , "2000-01-01 00:00:00" ) == null){
 			saveDebugData(GameData.gameDataWithString(((TextAsset)Resources.Load("note_sample")).text));
 		}
+		foreach (GameData g in datas){
+			MusicData m = new MusicData(g.musicdata);
+			if (g.summery.playtime < 5 && m.notes.Count > 50){
+				g.summery.playtime = 600;
+				g.summery.lv = m.GetLv( g.summery.playtime );
+				if (!g.summery.title.EndsWith("[F]")){
+					g.summery.title += "[F]"; 
+				}
+			}
+		}
+		replaceDebugDatas(datas);
 		reflesh ();
 	}
 	void reflesh(){
+		Debug.Log ("VIDEO ID : " + gameData.summery.videoid);
 		MusicData.Level lv = new MusicData (gameData.musicdata).GetLvObj (gameData.summery.playtime);
 		GameObject.Find ("mainlabel").GetComponent<UILabel> ().text = 
 			"曲名　　　　:"+gameData.summery.title+"\n作成日　　　:"+gameData.summery.date+"\nハイスコア　:"+gameData.summery.highScore+"\n時間　　　　:"+gameData.summery.playtime/60+":"+gameData.summery.playtime%60+"\nレベル　　　:"+lv.lv+"\n密度ポイント:"+lv.pt_dens+"\n時間ポイント:"+lv.pt_time+"\n長打ポイント:"+lv.pt_long;
@@ -112,7 +125,9 @@ public class ChoiceManager : MonoBehaviour {
 			return;
 		}
 		EndFrag = true;
+		string videoid = gameData.summery.videoid;
 		gameData = new GameData ();
+		gameData.summery.videoid = videoid;
 		GameManager.gameData = gameData;
 		GameManager.returnScene = "Choice";
 		NoteManager.isEditMode = true;

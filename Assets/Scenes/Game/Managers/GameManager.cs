@@ -43,11 +43,13 @@ public class GameManager : MonoBehaviour {
 		pause_btn.SetActive (true);
 		ScreenUtil.moveUI(pause_btn, new Vector2(-0.1f , 0) , 0.5f, ScreenUtil.CURVEMODE_EASEOUT , false , 0 , true);
 		ScreenUtil.fadeUI(pause_btn, 0.5f , 0 , 0 , 1 );
+		
+		Debug.Log("MUSIC LENGTH : "+(int)NoteManager.manager.audio.clip.length);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (NoteManager.manager.audio.time > gameData.summery.playtime && !endFrag && !NoteManager.isEditMode) {
+		if (( NoteManager.manager.audio.time > gameData.summery.playtime || NoteManager.manager.audio.time > NoteManager.manager.audio.clip.length - 1 ) && !endFrag && !NoteManager.isEditMode) ) {
 			endFrag = true;
 			bool isFullCombo = (NoteManager.manager.music.notes.Count == result.good + result.great);
 			if (isFullCombo){
@@ -58,6 +60,10 @@ public class GameManager : MonoBehaviour {
 			}else{
 				setGameQuit(2);
 			}
+		}
+		if (NoteManager.manager.audio.time > NoteManager.manager.audio.clip.length-1 && !endFrag && NoteManager.isEditMode) {
+			endFrag = true;
+			setGameQuit(3);
 		}
 	}
 	void setGameQuit(float delay){
@@ -117,7 +123,13 @@ public class GameManager : MonoBehaviour {
 		if (NoteManager.isEditMode) {
 			MusicData music = NoteManager.manager.exportMusicData ();
 			gameData.musicdata = music.ToString ();
-			gameData.summery.playtime = (int)NoteManager.manager.audio.time + 1;
+			if (!endFrag){
+				Debug.Log("no max time ");
+				gameData.summery.playtime = (int)NoteManager.manager.audio.time + 1;
+			}else{
+				Debug.Log("max time ");
+				gameData.summery.playtime = (int)NoteManager.manager.audio.clip.length;
+			}
 			gameData.summery.lv = music.GetLv (gameData.summery.playtime);
 			gameData.summery.date = ScreenUtil.dateConvert (System.DateTime.Now);
 			ChoiceManager.saveDebugData (gameData);

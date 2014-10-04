@@ -9,6 +9,7 @@ public class LoaderManager : MonoBehaviour {
 	private bool forceDone;
 	private bool finishFrag;
 	private float startedTime;
+	public static float estimate_time = 10    ;
 
 	// Use this for initialization
 	void Start () {
@@ -34,7 +35,7 @@ public class LoaderManager : MonoBehaviour {
 		if (forceDone) {
 			black_mask.GetComponent<UIAnchor>().relativeOffset += Vector2.right * Time.deltaTime * 0.7f;
 		} else {
-			black_mask.GetComponent<UIAnchor>().relativeOffset = new Vector2( ( Time.time - startedTime )/10.0f ,black_mask.GetComponent<UIAnchor>().relativeOffset.y);
+			black_mask.GetComponent<UIAnchor>().relativeOffset = new Vector2( ( Time.time - startedTime )/estimate_time ,black_mask.GetComponent<UIAnchor>().relativeOffset.y);
 		}
 		if (forceDone && black_mask.GetComponent<UIAnchor>().relativeOffset.x > 1.05f){
 			finishFrag = true;

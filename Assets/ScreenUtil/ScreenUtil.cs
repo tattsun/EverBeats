@@ -454,4 +454,8 @@ public class ScreenUtil : MonoBehaviour {
 		}
 		return null;
 	}
+
+	static public string SearchAndGetString( string str , string s1 , string s2 ){
+		return str.Substring (str.IndexOf (s1) + s1.Length, str.IndexOf (s2) - (str.IndexOf (s1) + s1.Length));
+	}
 }
