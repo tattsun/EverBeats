@@ -331,6 +331,12 @@ public class ComboManager : MonoBehaviour {
 		return comboSum;
 	}
 
+	public void ResetCombo() {
+		beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,0);
+		numLabel.GetComponent<UILabel>().color = new Color(1,1,1,0);
+		comboLabel.GetComponent<UILabel>().color = new Color(1,1,1,0);
+	}
+
 	// miss, badのときfalse, それ以外true (成功判定)
 	private void SwitchState (bool ok){
 
