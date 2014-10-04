@@ -16,8 +16,10 @@ public class ComboTester : MonoBehaviour {
 	int prevTimer = 0;
 	
 	void Update () {
-		/*
+
 		timer += Time.deltaTime;
+
+		/*
 		intTimer = (int)timer;
 
 		if (intTimer == prevTimer) 
@@ -42,6 +44,13 @@ public class ComboTester : MonoBehaviour {
 			comboManager.GetCombo(MusicData.NoteData.NotePhase.Bad);
 		} else if (Input.GetKeyDown("f")){
 			comboManager.GetCombo(MusicData.NoteData.NotePhase.Miss);
+		} 
+
+		if (Input.GetKey("l")) {
+			if (timer > NoteManager.LONG_PUSH_TIME) {
+				comboManager.GetCombo(MusicData.NoteData.NotePhase.Long);
+				timer = 0.0f;
+			}
 		}
 
 		return;
