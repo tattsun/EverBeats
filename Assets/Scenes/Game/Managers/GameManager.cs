@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (( NoteManager.manager.audio.time > gameData.summery.playtime || NoteManager.manager.audio.time > NoteManager.manager.audio.clip.length - 1 ) && !endFrag && !NoteManager.isEditMode) ) {
+		if (( NoteManager.manager.audio.time > gameData.summery.playtime || NoteManager.manager.audio.time > NoteManager.manager.audio.clip.length - 1 ) && !endFrag && !NoteManager.isEditMode ) {
 			endFrag = true;
 			bool isFullCombo = (NoteManager.manager.music.notes.Count == result.good + result.great);
 			if (isFullCombo){
