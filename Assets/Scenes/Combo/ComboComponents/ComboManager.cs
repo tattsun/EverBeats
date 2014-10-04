@@ -35,8 +35,11 @@ public class ComboManager : MonoBehaviour {
 	private float defaultNumOffsetY;
 	private float defaultComboOffsetY;
 	private Color nowComboColor = new Color(1,1,1,1);
-	private float noticeMoveDistance = 0.1f;
+	public float noticeMoveDistance = 0.1f;
 	private float defaultNoticeOffsetY;
+	public float beatMoveDistance = 0.07f;
+	private float defaultBeatOffsetY;
+	private float defaultBeatScale;
 
 	// 設定定数フィールド
 	public float startAnimInterval = 0.5f;
@@ -45,6 +48,9 @@ public class ComboManager : MonoBehaviour {
 	public float lightAnimSpan = 0.3f;
 	public float lightMinSize = 0.1f;
 	public float lightMaxSize = 0.3f;
+	public float beatMoveInterval = 0.3f;
+	public float beatBiginHide = 1.0f;
+	public float beatHideInterval = 0.1f;
 
 	public int minComboNum = 5;
 
@@ -53,10 +59,12 @@ public class ComboManager : MonoBehaviour {
 	private bool isEndAnimation = false;
 	private bool isLightAnimation = false;
 	private bool isComboNoticeAnimation = false;
+	private bool isBeatAnimation = false;
 
 	private float startTimer = 0.0f;
 	private float lightTimer = 0.0f;
 	private float noticeTimer = 0.0f;
+	private float beatTimer = 0.0f;
 
 	enum AnimationPhase{
 		Nothing, // 何もないとき
@@ -78,6 +86,8 @@ public class ComboManager : MonoBehaviour {
 		beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,0);
 		light.GetComponent<UISprite>().color = new Color(1,1,1,0);
 
+		defaultBeatScale = beatSprite.GetComponent<UIStretch>().relativeSize.x;
+		defaultBeatOffsetY = beatSprite.GetComponent<UIAnchor>().relativeOffset.y;
 		defaultNoticeOffsetY = comboNoticeLabel.GetComponent<UIAnchor>().relativeOffset.y;
 		defaultTextScale = comboLabel.GetComponent<UIStretch>().relativeSize.y;
 		defaultNumScale = numLabel.GetComponent<UIStretch>().relativeSize.y;
@@ -198,6 +208,26 @@ public class ComboManager : MonoBehaviour {
 			}
 		}
 
+		if (isBeatAnimation) {
+			beatTimer += Time.deltaTime;
+			if (beatTimer < beatMoveInterval) {
+				float degree = GetTimeDuration(beatTimer, beatMoveInterval);
+
+				beatSprite.GetComponent<UISprite>().color = new Color (1, 1, 1, GetTimeDuration(beatTimer, beatMoveInterval, "DecreasingCurve"));
+				beatSprite.GetComponent<UIAnchor>().relativeOffset.y = defaultBeatOffsetY + beatMoveDistance - (degree * beatMoveDistance);
+				beatSprite.GetComponent<UIStretch>().relativeSize.x = defaultBeatScale * GetTimeDuration(beatTimer, beatMoveInterval, "Shake");
+
+			} else if (beatTimer > beatBiginHide) {
+				float time = beatTimer - beatBiginHide;
+				beatSprite.GetComponent<UISprite>().color = new Color (1, 1, 1, 1 - GetTimeDuration(time, beatHideInterval, "Linear"));
+			}
+
+			if (beatTimer > beatBiginHide + beatHideInterval) {
+				beatTimer = 0.0f;
+				isBeatAnimation = false;
+			}
+		}
+
 		/*
 		if (isLightAnimation) {
 			lightTimer += Time.deltaTime;
@@ -219,13 +249,43 @@ public class ComboManager : MonoBehaviour {
 
 	}
 
-	private float GetTimeDuration(float time, float duration) {
+	private float GetTimeDuration(float time, float duration, string type = "Sin") {
 
 		float x;
-		if (time < duration)
-			x = Mathf.Sin(Mathf.PI/2.0f/duration*time);
-		else
-			x = 1.0f;
+		switch(type) {
+		case "Sin":
+			if (time < duration)
+				x = Mathf.Sin(Mathf.PI/2.0f/duration*time);
+			else
+				x = 1.0f;
+			break;
+			 
+		case "Linear":
+			if (time < duration) {
+				x = (1.0f/duration)*time;
+			} else {
+				x = 1.0f;
+			}
+			break; 
+
+		case "Shake":
+			float t = time*3.3f/duration - 0.275f;
+			x = Mathf.Exp(-2*t)*Mathf.Sin(Mathf.PI*t) + 1;
+			break;
+		
+		case "IncreasingCurve":
+			x = - (Mathf.Sqrt(1 - Mathf.Pow(time/duration,2))) + 1;
+			break;
+
+		case "DecreasingCurve":
+			x = Mathf.Sqrt(1 - Mathf.Pow((time-duration)/duration,2));
+			break;
+
+		default:
+			x = 0.0f;
+			Debug.LogError("GetTimeDuration does not support type :" + type);
+			break;
+		}
 
 		return x;
 		// return (1-(1/(20*startTimer/duration+1)));
@@ -262,7 +322,9 @@ public class ComboManager : MonoBehaviour {
 			break;
 		}	
 
-		beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,1);
+		// beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,1);
+		isBeatAnimation = true;
+		beatTimer = 0.0f;
 
 		SwitchState (ok);
 
