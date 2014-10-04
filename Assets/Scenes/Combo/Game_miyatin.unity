@@ -2206,16 +2206,15 @@ MonoBehaviour:
   lightPrehab: {fileID: 100000, guid: 82a483b1f55bd4249b546cd097da9080, type: 2}
   lightExpo1: {fileID: 100000, guid: f6a5c5ccc193f4530a727765afcb7f08, type: 2}
   lightExpo2: {fileID: 100000, guid: c097e4e7777b14fe1baad66c9beafa6f, type: 2}
-  combo:
+  comboColor:
   - {r: 1, g: 1, b: 1, a: 0}
-  - {r: .659229159, g: 1, b: .647058845, a: 0}
-  - {r: .595588207, g: .765720069, b: 1, a: 0}
-  - {r: .994624674, g: 1, b: .610294104, a: 0}
-  - {r: 1, g: .705882311, b: .705882311, a: 0}
+  - {r: .610294104, g: 1, b: .709736347, a: 0}
+  - {r: .544117689, g: .698174477, b: 1, a: 0}
+  - {r: 1, g: .869371176, b: .588235259, a: 0}
+  - {r: 1, g: .720588207, b: .720588207, a: 0}
   startAnimInterval: .5
   middleAnimInterval: .200000003
-  leaveAnimInterval: 2
-  endAnimInterval: .5
+  endAnimInterval: .100000001
   lightAnimSpan: .300000012
   lightMinSize: .100000001
   lightMaxSize: .300000012
