@@ -144,6 +144,7 @@ public class NoteManager : MonoBehaviour {
 						float score = OK_TIME*SCORE_MULTIPLIER * 2 * 0.2f * (Mathf.Log10(ComboManager.instance.GetCombo( type )) + 1 );;
 						GameManager.score += (int)score;
 						ScoreManager.manager.leftPoint += (int)score;
+						GameManager.manager.result.great ++;
 						break;
 					}
 				}
