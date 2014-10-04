@@ -7,7 +7,6 @@ public class ChoiceManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Application.targetFrameRate = -1;
 		selected = loadDebugData ().Length - 1;
 		gameData = loadDebugData ()[ selected ] ;
 		/*

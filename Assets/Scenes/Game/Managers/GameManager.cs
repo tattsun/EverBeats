@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake(){
+
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 60;
+
 		manager = this;
 		if ( gameData == null) {
 			gameData = GameData.sampleData();
