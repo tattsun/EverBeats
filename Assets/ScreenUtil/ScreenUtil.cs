@@ -9,9 +9,10 @@ public class ScreenUtil : MonoBehaviour {
 
 	private static GameObject resentBlackOut;
 
-	static public int CURVEMODE_EASEIN	=0;
-	static public int CURVEMODE_EASEOUT	=1;
-	static public int CURVEMODE_NONE	=2;
+	static public int CURVEMODE_EASEIN			=0;
+	static public int CURVEMODE_EASEOUT			=1;
+	static public int CURVEMODE_NONE			=2;
+	static public int CURVEMODE_EASEOUT_HARD	=3;
 
 	static private int MODE_MOVE		=0;
 	static private int MODE_FADE		=1;
@@ -50,6 +51,7 @@ public class ScreenUtil : MonoBehaviour {
 		}
 		float x = 1.0f - (endTime - Time.realtimeSinceStartup)/interval;
 		float easeOut = 3.0f*x*x - 2.0f*x*x*x;
+		float easeOut_hard = Mathf.Min (1 - Mathf.Exp(-6 * x), 1f);
 		float easeIn = x*x*x;
 
 		if (mode == MODE_MOVE){
@@ -68,6 +70,8 @@ public class ScreenUtil : MonoBehaviour {
 				Target.relativeOffset = originOffset + easeIn*moveDistance;
 			}else if ( curveMode == CURVEMODE_EASEOUT ){
 				Target.relativeOffset = originOffset + easeOut*moveDistance;
+			}else if ( curveMode == CURVEMODE_EASEOUT_HARD ){
+				Target.relativeOffset = originOffset + easeOut_hard*moveDistance;
 			}
 		}else if (mode == MODE_FADE){
 			TargetObj.GetComponent<UIWidget> () .alpha = (alphaAfter - alphaBefore) * x + alphaBefore;

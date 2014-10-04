@@ -13,6 +13,19 @@ public class ResultData{
 	public bool isNormCleared;
 	public float ratio;
 	public string rank;
+	public int notenum;
+
+	
+	public static ResultData sample(){
+		ResultData r = new ResultData ();
+		r.great = 120;
+		r.good = 12;
+		r.bad = 5;
+		r.maxCombo = 34;
+		r.score = 12415;
+		r.excute ();
+		return r;
+	}
 
 
 	public ResultData(){
@@ -30,8 +43,8 @@ public class ResultData{
 				+ "NORM: " + (isNormCleared ? "CLEAR" : " - ") + "\n";
 	}
 	public void excute(){
-		int max = great + good + bad;
-		ratio = ((float)(great *10 + good*9)) / ((float)(max*10)) * 100;
+		notenum = great + good + bad;
+		ratio = ((float)(great *10 + good*9)) / ((float)(notenum*10)) * 100;
 
 		if ( good == 0 && bad == 0 ){
 			rank = "SS";

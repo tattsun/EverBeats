@@ -31,11 +31,10 @@ public class PauseManager : MonoBehaviour {
 		if (endFrag){
 			return;
 		}
-		endFrag = true;
-
-		GameManager.manager.saveAndExit ();
+		Resume (true);
+		GameManager.manager.gameQuit ();
 	}
-	public void Resume(){
+	public void Resume( bool DontCallBack = false ){
 		if (endFrag){
 			return;
 		}
@@ -49,10 +48,11 @@ public class PauseManager : MonoBehaviour {
 		ApplyAnimation ( "back" , false ,  unit*2 +offset);
 		
 		ScreenUtil.fadeUI ( ScreenUtil.findObject (transform , "p_title" ) , 1, offset , 1, 0);
-
 		SimpleTimer.setTimer (1,()=>{
 			Destroy(gameObject);
-			GameManager.manager.OnPauseRestored ();
+			if (!DontCallBack){
+				GameManager.manager.OnPauseRestored ();
+			}
 		});
 	}
 	public void Retry(){

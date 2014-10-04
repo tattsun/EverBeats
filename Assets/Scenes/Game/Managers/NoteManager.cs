@@ -8,7 +8,6 @@ public class NoteManager : MonoBehaviour {
 	static private float GREAT_TIME 		= 0.05f;
 	static private float OK_DISTANCE		= 0.2f;
 	static public  float LONG_PUSH_TIME		= 0.1f;
-
 	static private float SCORE_MULTIPLIER	= 100f;
 
 

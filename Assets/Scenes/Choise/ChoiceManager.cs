@@ -4,9 +4,11 @@ using System.Collections;
 public class ChoiceManager : MonoBehaviour {
 	private GameData gameData;
 	int selected;
+	bool EndFrag;
 
 	// Use this for initialization
 	void Start () {
+		EndFrag = false;
 		selected = loadDebugData ().Length - 1;
 		gameData = loadDebugData ()[ selected ] ;
 		if ( getDataFromDate( loadDebugData() , "2000-01-01 00:00:00" ) == null){
@@ -88,18 +90,35 @@ public class ChoiceManager : MonoBehaviour {
 
 
 	public void Play(){
+		if (EndFrag){
+			return;
+		}
+		EndFrag = true;
+
+		
 		GameManager.gameData = gameData;
 		GameManager.returnScene = "Result";
 		ResultManager.returnScene = "Choice";
 		NoteManager.isEditMode = false;
-		Application.LoadLevel ("Game");
+		BlackOuter.show(1);
+		SimpleTimer.setTimer(1, ()=>{
+			Application.LoadLevel ("Game");
+		});
+
 	}
 	
 	public void Make(){
+		if (EndFrag){
+			return;
+		}
+		EndFrag = true;
 		gameData = new GameData ();
 		GameManager.gameData = gameData;
 		GameManager.returnScene = "Choice";
 		NoteManager.isEditMode = true;
-		Application.LoadLevel ("Game");
+		BlackOuter.show(1);
+		SimpleTimer.setTimer(1, ()=>{
+			Application.LoadLevel ("Game");
+		});
 	}
 }

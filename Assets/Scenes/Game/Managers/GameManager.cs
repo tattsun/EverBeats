@@ -13,12 +13,12 @@ public class GameManager : MonoBehaviour {
 
 	GameObject pause_btn;
 	bool nowPausing;
-	bool endFrag = false;
+	bool endFrag;
+	bool gameEndCancel;
 
 
 	// Use this for initialization
 	void Awake(){
-
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
 
@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		score = 0;
 		nowPausing = false;
+		gameEndCancel = false;
+		endFrag = false;
 		result = new ResultData ();
 		GameObject.Find ("Title").GetComponent<UILabel> ().text = gameData.summery.title_en;
 		GameObject.Find ("Lv").GetComponent<UILabel> ().text = "lv " + gameData.summery.lv;
@@ -48,10 +50,17 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (NoteManager.manager.audio.time > gameData.summery.playtime && !endFrag && !NoteManager.isEditMode) {
-			SimpleTimer.setTimer(3, ()=>{
-				saveAndExit();
-			});
 			endFrag = true;
+			SimpleTimer.setTimer(2, ()=>{
+				if (gameEndCancel){
+					gameEndCancel = false;
+					return;
+				}
+				ScreenUtil.moveUI(pause_btn, new Vector2(0.1f , 0) , 0.5f, ScreenUtil.CURVEMODE_EASEOUT , true , 0 , false);
+				ScreenUtil.fadeUI(pause_btn, 0.5f , 0 , 1 , 0 );
+				nowPausing = true;
+				_gameQuit();
+			});
 		}
 	}
 
@@ -75,6 +84,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Retry(){
+		endFrag = false;
+		gameEndCancel = true;
 		NoteManager.manager.audio.time = 0;
 		NoteManager.manager.notes.RemoveAll ((MusicData.NoteData n) => {
 			Destroy(n.gameObject);
@@ -87,7 +98,18 @@ public class GameManager : MonoBehaviour {
 		result = new ResultData ();
 		score = 0;
 	}
-
+	
+	public void gameQuit(){
+		gameEndCancel = true;
+		_gameQuit ();
+	}
+	private void _gameQuit(){
+		BlackOuter.show(2);
+		AudioUtil.crossfade ( 2 , Camera.main.gameObject);
+		SimpleTimer.setTimer(3, ()=>{
+			saveAndExit();
+		});
+	}
 	public void saveAndExit(){
 		if (NoteManager.isEditMode) {
 			MusicData music = NoteManager.manager.exportMusicData ();
@@ -102,7 +124,12 @@ public class GameManager : MonoBehaviour {
 			result.excute();
 			ResultManager.result = result;
 		}
-		Application.LoadLevel (returnScene);
+		if (returnScene == null) {
+			Debug.LogWarning ("[QUIT GAME] ReturnScene is null");
+			Application.LoadLevel ("Result");
+		} else {
+			Application.LoadLevel (returnScene);
+		}
 	}
 
 }
