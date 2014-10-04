@@ -118,7 +118,7 @@ public class ChoiceManager : MonoBehaviour {
 		NoteManager.isEditMode = true;
 		BlackOuter.show(1);
 		SimpleTimer.setTimer(1, ()=>{
-			Application.LoadLevel ("Game");
+			Application.LoadLevel ("MusicSelect");
 		});
 	}
 }

@@ -64,7 +64,11 @@ public class ResultUnit : MonoBehaviour {
 			nowValue = value;
 		}
 		if (isPercent){
-			v_label.text = nowValue.ToString("f2");
+			if (nowValue == 100){
+				v_label.text = "100";
+			}else{
+				v_label.text = nowValue.ToString("f2");
+			}
 			m_label.text = "100%";
 		}else{
 			v_label.text = ""+((int)nowValue);

@@ -55,19 +55,19 @@ public class MusicData {
 			
 			float dens = ((float)copy.Count)/playtime;  //note per second
 			pt_dens = Mathf.Max( 0,(dens*7.0f - 20 )*1.7f );
-			Debug.Log ("[LEVEL] dens :"+dens + " ->point:" + pt_dens);
+			//Debug.Log ("[LEVEL] dens :"+dens + " ->point:" + pt_dens);
 			
 			/* playtime */
 			pt_time = playtime/20;
-			Debug.Log ("[LEVEL] playtime :"+playtime + " ->point:" + pt_time);
+			//Debug.Log ("[LEVEL] playtime :"+playtime + " ->point:" + pt_time);
 			
 			/* long note num */
 			pt_long = Mathf.Max(Mathf.Sqrt(long_num)/2 , 0);
-			Debug.Log ("[LEVEL] long_num :"+long_num + " ->point:" + pt_long);
+			//Debug.Log ("[LEVEL] long_num :"+long_num + " ->point:" + pt_long);
 			
 			/* SUM */
 			lv = Mathf.CeilToInt (pt_dens + pt_time + pt_long);
-			Debug.Log ("[LEVEL] lv :"+ lv );
+			//Debug.Log ("[LEVEL] lv :"+ lv );
 		}
 	}
 	public class NoteData {

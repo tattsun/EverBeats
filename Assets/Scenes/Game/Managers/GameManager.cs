@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour {
 	GameObject pause_btn;
 	bool nowPausing;
 	bool endFrag;
-	bool gameEndCancel;
 
 
 	// Use this for initialization
@@ -30,7 +29,6 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		score = 0;
 		nowPausing = false;
-		gameEndCancel = false;
 		endFrag = false;
 		result = new ResultData ();
 		GameObject.Find ("Title").GetComponent<UILabel> ().text = gameData.summery.title_en;
@@ -51,17 +49,24 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (NoteManager.manager.audio.time > gameData.summery.playtime && !endFrag && !NoteManager.isEditMode) {
 			endFrag = true;
-			SimpleTimer.setTimer(2, ()=>{
-				if (gameEndCancel){
-					gameEndCancel = false;
-					return;
-				}
-				ScreenUtil.moveUI(pause_btn, new Vector2(0.1f , 0) , 0.5f, ScreenUtil.CURVEMODE_EASEOUT , true , 0 , false);
-				ScreenUtil.fadeUI(pause_btn, 0.5f , 0 , 1 , 0 );
-				nowPausing = true;
-				_gameQuit();
-			});
+			bool isFullCombo = (NoteManager.manager.music.notes.Count == result.good + result.great);
+			if (isFullCombo){
+				SimpleTimer.setTimer(1,()=>{
+					ComboManager.instance.ShowFullCombo();
+					setGameQuit(2);
+				});
+			}else{
+				setGameQuit(2);
+			}
 		}
+	}
+	void setGameQuit(float delay){
+		ScreenUtil.moveUI(pause_btn, new Vector2(0.1f , 0) , 0.5f, ScreenUtil.CURVEMODE_EASEOUT , true , 0 , false);
+		ScreenUtil.fadeUI(pause_btn, 0.5f , 0 , 1 , 0 );
+		nowPausing = true;
+		SimpleTimer.setTimer(delay, ()=>{
+			_gameQuit();
+		});
 	}
 
 	public void Pause(){
@@ -85,7 +90,6 @@ public class GameManager : MonoBehaviour {
 
 	public void Retry(){
 		endFrag = false;
-		gameEndCancel = true;
 		NoteManager.manager.audio.time = 0;
 		NoteManager.manager.notes.RemoveAll ((MusicData.NoteData n) => {
 			Destroy(n.gameObject);
@@ -100,7 +104,6 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void gameQuit(){
-		gameEndCancel = true;
 		_gameQuit ();
 	}
 	private void _gameQuit(){

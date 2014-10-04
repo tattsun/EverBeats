@@ -600,13 +600,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 5
-  mWidth: 976
+  mWidth: 969
   mHeight: 33
   mDepth: 3
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 29.575758
+  aspectRatio: 29.363636
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: a059ad74477ad4dacb1faea791860d21, type: 3}
   mFont: {fileID: 0}
@@ -639,7 +639,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 152561978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 449, y: 197.499985, z: 0}
+  m_LocalPosition: {x: 445.5, y: 196.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2021701557}
@@ -2203,9 +2203,11 @@ MonoBehaviour:
   comboNoticeLabelPrehab: {fileID: 100000, guid: 9582c9021373f46cc928507130e805f5,
     type: 2}
   beatSpritePrehab: {fileID: 100000, guid: 5d2ea29f51f784bbeb491cd81dd0d034, type: 2}
-  lightPrehab: {fileID: 100000, guid: 82a483b1f55bd4249b546cd097da9080, type: 2}
   lightExpo1: {fileID: 100000, guid: f6a5c5ccc193f4530a727765afcb7f08, type: 2}
   lightExpo2: {fileID: 100000, guid: c097e4e7777b14fe1baad66c9beafa6f, type: 2}
+  lightExpo3: {fileID: 100000, guid: 9e3c7b68f4f9740e296eeff6ef5777f9, type: 2}
+  fullComboSpritePrehab: {fileID: 100000, guid: e43ef655876094e7ebad178d0cb31a58,
+    type: 2}
   comboColor:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: .573529422, g: 1, b: .735294223, a: 0}
@@ -2215,6 +2217,7 @@ MonoBehaviour:
   badBeatColor: {r: .735294104, g: 0, b: 0, a: 0}
   noticeMoveDistance: .100000001
   beatMoveDistance: .0700000003
+  maxFullComboScale: .349999994
   startAnimInterval: .5
   middleAnimInterval: .200000003
   endAnimInterval: .5
@@ -2262,7 +2265,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1110813381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69.4999771, y: 17.5000153, z: 0}
+  m_LocalPosition: {x: -69.9999771, y: 15.5000153, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 616922107}
@@ -2297,13 +2300,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1074
+  mWidth: 1066
   mHeight: 2
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 537
+  aspectRatio: 533
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -2442,7 +2445,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1151728341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 247.5, z: 0}
+  m_LocalPosition: {x: -.50000149, y: 245.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2021701557}
@@ -2514,13 +2517,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1386
-  mHeight: 126
+  mWidth: 1376
+  mHeight: 125
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 11
+  aspectRatio: 11.0080004
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -2619,13 +2622,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 976
+  mWidth: 969
   mHeight: 27
   mDepth: 3
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 36.1481476
+  aspectRatio: 35.8888893
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: a059ad74477ad4dacb1faea791860d21, type: 3}
   mFont: {fileID: 0}
@@ -2658,7 +2661,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1176249845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -390, y: 197.499985, z: 0}
+  m_LocalPosition: {x: -387.499969, y: 196.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2021701557}
@@ -2730,7 +2733,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1204531678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 429.000031, y: 241.499985, z: 0}
+  m_LocalPosition: {x: 426.5, y: 239.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2021701557}
@@ -2965,7 +2968,7 @@ Transform:
   m_GameObject: {fileID: 1223292313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00364298723, y: .00364298723, z: .00364298723}
+  m_LocalScale: {x: .0036697248, y: .0036697248, z: .0036697248}
   m_Children:
   - {fileID: 405398269}
   - {fileID: 1999038266}
@@ -3885,7 +3888,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1507646026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.4999962, y: 18.5, z: 0}
+  m_LocalPosition: {x: -40.0000038, y: 16.5000153, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 616922107}
@@ -3957,13 +3960,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1074
+  mWidth: 1066
   mHeight: 14
   mDepth: 5
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 76.7142868
+  aspectRatio: 76.1428604
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -4002,7 +4005,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1650273895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -449, y: 230.5, z: 0}
+  m_LocalPosition: {x: -445.5, y: 228.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2021701557}
@@ -4074,13 +4077,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 976
+  mWidth: 969
   mHeight: 33
   mDepth: 3
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 29.575758
+  aspectRatio: 29.363636
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: a059ad74477ad4dacb1faea791860d21, type: 3}
   mFont: {fileID: 0}
@@ -4829,7 +4832,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1999038265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.500006676, z: 0}
+  m_LocalPosition: {x: -.50000149, y: -.500001907, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1223292314}
@@ -4901,13 +4904,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 986
-  mHeight: 554
+  mWidth: 979
+  mHeight: 550
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.77978337
+  aspectRatio: 1.77999997
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -5027,7 +5030,7 @@ Transform:
   m_GameObject: {fileID: 2021701553}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00364298723, y: .00364298723, z: .00364298723}
+  m_LocalScale: {x: .0036697248, y: .0036697248, z: .0036697248}
   m_Children:
   - {fileID: 1204531679}
   - {fileID: 1267330833}

@@ -19,8 +19,8 @@ public class ResultData{
 	public static ResultData sample(){
 		ResultData r = new ResultData ();
 		r.great = 120;
-		r.good = 12;
-		r.bad = 5;
+		r.good = 0;
+		r.bad = 0;
 		r.maxCombo = 34;
 		r.score = 12415;
 		r.excute ();
@@ -44,7 +44,15 @@ public class ResultData{
 	}
 	public void excute(){
 		notenum = great + good + bad;
-		ratio = ((float)(great *10 + good*9)) / ((float)(notenum*10)) * 100;
+		float ratio_raw = ((float)(great *10 + good*5)) / ((float)(notenum*10));
+		float comp = 0.75f;
+		if (ratio_raw > 0.9f) {
+			ratio = comp + (ratio_raw - 0.9f) * ( (1 - comp) / 0.1f);
+		} else {
+			ratio = ratio_raw / 0.9f * comp;
+		}
+		ratio *= 100;
+
 
 		if ( good == 0 && bad == 0 ){
 			rank = "SS";

@@ -39,14 +39,29 @@ public class TubeDownloader : MonoBehaviour {
 	{
 		Debug.Log("[BGM] LOAD STARTED..");
 		//get JSON
-/*
-		WWW json = new WWW("http://youtubeinmp3.com/fetch/?api=advanced&format=JSON&video=http://www.youtube.com/watch?v="+GameManager.gameData.videoid);
-		yield return json;
-		JSONResponse r = LitJson.JsonMapper.ToObject<JSONResponse> (json.text);
-		Debug.Log ("[BGN] data fetched :"+r.link);
-		WWW www = new WWW(r.link + "&dammy=dammy.mp3");*/
+		string url = null;
+		if (!GameManager.gameData.summery.videoid.Equals (GameData.sampleData ().summery.videoid)) {
+			Debug.Log ("[BGM] video id :" + GameManager.gameData.summery.videoid);
+			WWW json = new WWW ("http://youtubeinmp3.com/fetch/?api=advanced&format=JSON&video=http://www.youtube.com/watch?v=" + GameManager.gameData.summery.videoid);
+			yield return json;
+			Debug.Log ("[BGM] data fetched :" + json.text);
+			JSONResponse r = null;
+			try {
+				r = LitJson.JsonMapper.ToObject<JSONResponse> (json.text);
+				GameManager.gameData.summery.title = r.title;
+				GameManager.gameData.summery.title_en = r.title;
+				url = r.link + "&dammy=dammy.mp3";
+			}catch{
+				Debug.LogWarning ("Info not found");
+				GameManager.gameData.summery.title = "Unknown";
+				GameManager.gameData.summery.title_en = "Unknown";
+				url = "http://YouTubeInMP3.com/fetch/?video=http://www.youtube.com/watch?v="+GameManager.gameData.summery.videoid+ "&dammy=dammy.mp3";
+			}
+		} else {
+			url = "http://kamasu.jp/everbeats/musics/test_bgm.mp3";
+		}
+		WWW www = new WWW(url);
 		//WWW www = new WWW("http://YouTubeInMP3.com/fetch/?video=http://www.youtube.com/watch?v="+GameManager.gameData.videoid+ "&dammy=dammy.mp3");
-		WWW www = new WWW("http://kamasu.jp/everbeats/musics/test_bgm.mp3");
 		yield return www;
 		Camera.main.GetComponent<AudioSource> ().clip = (www.audioClip);
 		Debug.Log("[BGM] LOAD COMPLETE!");
