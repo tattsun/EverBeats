@@ -53,6 +53,10 @@ public class ComboTester : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetKeyDown("k")) {
+			comboManager.ShowFullCombo();
+		}
+
 		return;
 
 		float value = Random.value;

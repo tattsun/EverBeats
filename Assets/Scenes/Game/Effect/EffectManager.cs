@@ -21,6 +21,13 @@ public class EffectManager : MonoBehaviour {
 		rowNum = WholeSize / PieceSize;
 		interval = 1.0f / ((float)FrameRate);
 		generatedTime = Time.time;
+
+		
+		int x = 0;
+		int y = 0;
+		
+		gameObject.renderer.material.SetTextureOffset ( "_MainTex" , new Vector2( piece * x , 1.0f -  piece *(y + 1)  ));
+		gameObject.renderer.material.SetTextureScale ( "_MainTex" , new Vector2( piece , piece ));
 	}
 	
 	// Update is called once per frame
@@ -40,4 +47,5 @@ public class EffectManager : MonoBehaviour {
 		gameObject.renderer.material.SetTextureOffset ( "_MainTex" , new Vector2( piece * x , 1.0f -  piece *(y + 1)  ));
 		gameObject.renderer.material.SetTextureScale ( "_MainTex" , new Vector2( piece , piece ));
 	}
+
 }
