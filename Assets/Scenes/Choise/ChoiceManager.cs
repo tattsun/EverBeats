@@ -5,7 +5,7 @@ public class ChoiceManager : MonoBehaviour {
 	private GameData gameData;
 	int selected;
 	bool EndFrag;
-
+	// test
 	// Use this for initialization
 	void Start () {
 		EndFrag = false;
