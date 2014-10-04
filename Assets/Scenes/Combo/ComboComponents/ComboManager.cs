@@ -303,7 +303,8 @@ public class ComboManager : MonoBehaviour {
 			beatSprite.GetComponent<UISprite>().spriteName = "combo_good";
 			ok = true;
 			break;
-
+			
+			case MusicData.NoteData.NotePhase.Long:
 			case MusicData.NoteData.NotePhase.Great:
 			beatSprite.GetComponent<UISprite>().spriteName = "combo_excellent";
 			ok = true;

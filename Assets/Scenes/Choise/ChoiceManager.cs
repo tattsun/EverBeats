@@ -9,10 +9,9 @@ public class ChoiceManager : MonoBehaviour {
 	void Start () {
 		selected = loadDebugData ().Length - 1;
 		gameData = loadDebugData ()[ selected ] ;
-		/*
 		if ( getDataFromDate( loadDebugData() , "2000-01-01 00:00:00" ) == null){
 			saveDebugData(GameData.gameDataWithString(((TextAsset)Resources.Load("note_sample")).text));
-		}*/
+		}
 		reflesh ();
 	}
 	void reflesh(){
