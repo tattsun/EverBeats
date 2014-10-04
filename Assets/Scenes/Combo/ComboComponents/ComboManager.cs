@@ -342,7 +342,6 @@ public class ComboManager : MonoBehaviour {
 				return comboSum;
 			}
 			isBeatAnimation = true;
-			Debug.Log ("first long note");
 			longJudgeTimer = 0.0f;
 			beatSprite.GetComponent<UISprite>().spriteName = "combo_excellent";
 			ok = true;
