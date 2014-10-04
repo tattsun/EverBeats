@@ -43,9 +43,139 @@ MonoBehaviour:
   mSprites:
   - name: back
     x: 0
-    y: 1471
+    y: 1408
+    width: 1136
+    height: 640
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: backtitle
+    x: 1375
+    y: 1602
+    width: 157
+    height: 157
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Black
+    x: 1273
+    y: 1459
+    width: 16
+    height: 16
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_bad
+    x: 1290
+    y: 1467
+    width: 52
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 50
+    paddingRight: 50
+    paddingTop: 9
+    paddingBottom: 9
+  - name: combo_excellent
+    x: 1137
+    y: 1476
+    width: 152
+    height: 44
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_good
+    x: 1137
+    y: 1422
+    width: 86
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 32
+    paddingRight: 34
+    paddingTop: 9
+    paddingBottom: 9
+  - name: combo_great
+    x: 1137
+    y: 1449
+    width: 87
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 32
+    paddingRight: 33
+    paddingTop: 9
+    paddingBottom: 9
+  - name: combo_light
+    x: 1137
+    y: 1521
+    width: 237
+    height: 238
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combo_miss
+    x: 1290
+    y: 1494
+    width: 63
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 44
+    paddingRight: 45
+    paddingTop: 9
+    paddingBottom: 9
+  - name: gage_rainbow
+    x: 641
+    y: 1393
     width: 1024
-    height: 577
+    height: 2
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: gage_white
+    x: 641
+    y: 1396
+    width: 1024
+    height: 11
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -55,8 +185,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mini
-    x: 1666
-    y: 2013
+    x: 1290
+    y: 1431
     width: 35
     height: 35
     borderLeft: 0
@@ -67,9 +197,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: pause_back
+    x: 1137
+    y: 1760
+    width: 512
+    height: 288
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: resume
+    x: 1375
+    y: 1444
+    width: 157
+    height: 157
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: retry
+    x: 1650
+    y: 1891
+    width: 157
+    height: 157
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: stop
+    x: 1225
+    y: 1428
+    width: 47
+    height: 47
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: upper
-    x: 1025
-    y: 1889
+    x: 0
+    y: 1248
     width: 640
     height: 159
     borderLeft: 0

@@ -11,10 +11,7 @@ public class debugLabel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Camera.main.GetComponent<AudioSource>().isPlaying){
-			label.text = ""+Camera.main.GetComponent<AudioSource>().time.ToString("f2");
-		}else{
-			label.text = "stop";
-		}
+		label.text = "FPS :" + (1 / Time.deltaTime).ToString("f1");
+
 	}
 }
