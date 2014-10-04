@@ -14,7 +14,8 @@ public class ComboManager : MonoBehaviour {
 	public GameObject lightPrehab;
 	public GameObject lightExpo1;
 	public GameObject lightExpo2;
-	public Color[] combo;
+	public Color[] comboColor;
+	public Color badBeatColor;
 
 	private GameObject numLabel; // コンボ数を表示する為のNGUI
 	private GameObject comboLabel; // コンボ数のよこを表示する為のNGUI
@@ -23,7 +24,7 @@ public class ComboManager : MonoBehaviour {
 	private GameObject light;
 
 	private int comboSum = 0;
-
+	
 	/* 定数フィールド */
 	private float defaultTextScale;
 	private float maxTextScale;
@@ -34,17 +35,22 @@ public class ComboManager : MonoBehaviour {
 	private float defaultNumOffsetY;
 	private float defaultComboOffsetY;
 	private Color nowComboColor = new Color(1,1,1,1);
-	private float noticeMoveDistance = 0.1f;
+	public float noticeMoveDistance = 0.1f;
 	private float defaultNoticeOffsetY;
+	public float beatMoveDistance = 0.07f;
+	private float defaultBeatOffsetY;
+	private float defaultBeatScale;
 
 	// 設定定数フィールド
 	public float startAnimInterval = 0.5f;
 	public float middleAnimInterval = 0.2f;
-	public float leaveAnimInterval = 2.0f;
 	public float endAnimInterval = 0.5f;
 	public float lightAnimSpan = 0.3f;
 	public float lightMinSize = 0.1f;
 	public float lightMaxSize = 0.3f;
+	public float beatMoveInterval = 0.3f;
+	public float beatBiginHide = 1.0f;
+	public float beatHideInterval = 0.1f;
 
 	public int minComboNum = 5;
 
@@ -53,10 +59,15 @@ public class ComboManager : MonoBehaviour {
 	private bool isEndAnimation = false;
 	private bool isLightAnimation = false;
 	private bool isComboNoticeAnimation = false;
+	private bool isBeatAnimation = false;
+	private bool isFullComboAnimation = false;
 
 	private float startTimer = 0.0f;
 	private float lightTimer = 0.0f;
 	private float noticeTimer = 0.0f;
+	private float beatTimer = 0.0f;
+
+	private bool isFullCombo = true;
 
 	enum AnimationPhase{
 		Nothing, // 何もないとき
@@ -78,15 +89,17 @@ public class ComboManager : MonoBehaviour {
 		beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,0);
 		light.GetComponent<UISprite>().color = new Color(1,1,1,0);
 
+		defaultBeatScale = beatSprite.GetComponent<UIStretch>().relativeSize.x;
+		defaultBeatOffsetY = beatSprite.GetComponent<UIAnchor>().relativeOffset.y;
 		defaultNoticeOffsetY = comboNoticeLabel.GetComponent<UIAnchor>().relativeOffset.y;
 		defaultTextScale = comboLabel.GetComponent<UIStretch>().relativeSize.y;
 		defaultNumScale = numLabel.GetComponent<UIStretch>().relativeSize.y;
-		maxNumScale = defaultNumScale * 3.0f;
-		maxTextScale = defaultTextScale * 3.0f;
+		maxNumScale = defaultNumScale * 1.5f;
+		maxTextScale = defaultTextScale * 1.5f;
 		defaultComboOffsetY = comboLabel.GetComponent<UIAnchor>().relativeOffset.y;
 		defaultNumOffsetY = numLabel.GetComponent<UIAnchor>().relativeOffset.y;
-		appearComboOffsetY = defaultComboOffsetY - 0.1f;
-		appearNumOffsetY = defaultNumOffsetY - 0.1f;
+		appearComboOffsetY = defaultComboOffsetY - 0.03f;
+		appearNumOffsetY = defaultNumOffsetY - 0.03f;
 		InitGUI();
 	}
 
@@ -112,6 +125,8 @@ public class ComboManager : MonoBehaviour {
 			break;
 		}
 
+		Debug.Log("isStartAnimation: " + isStartAnimation + " isMiddleAnimation: " + isMiddleAnimation + " isEndAnimation: " + isEndAnimation);
+
 		if (isStartAnimation) {
 			/* 透明度のアニメーション */
 			bool endAlpha = false;
@@ -125,10 +140,10 @@ public class ComboManager : MonoBehaviour {
 
 			/* スケールのアニメーション */
 			bool endScale = false;
-			float nowTextScale = maxTextScale - GetTimeDuration(startTimer, startAnimInterval)*Mathf.Abs(defaultTextScale - maxTextScale);
+			float nowTextScale = maxTextScale - GetTimeDuration(startTimer, startAnimInterval,"Shake")*Mathf.Abs(defaultTextScale - maxTextScale);
 			float nowNumScale = maxNumScale - GetTimeDuration(startTimer, startAnimInterval)*Mathf.Abs(defaultNumScale - maxNumScale);
 
-			//comboLabel.GetComponent<UIStretch>().relativeSize.y = nowTextScale;
+			comboLabel.GetComponent<UIStretch>().relativeSize.y = nowTextScale;
 			//numLabel.GetComponent<UIStretch>().relativeSize.y = nowNumScale;
 
 			if (Mathf.Abs(nowTextScale - defaultTextScale) < 0.0001f && Mathf.Abs(nowNumScale - defaultNumScale) < 0.0001f) {
@@ -139,16 +154,17 @@ public class ComboManager : MonoBehaviour {
 
 			isStartAnimation = !(endScale && endAlpha);
 
+			if (isMiddleAnimation) {
+				isStartAnimation = endAlpha;
+			}
+
 			if (!isStartAnimation){
 				startTimer = 0.0f;
 				animationPhase = AnimationPhase.Middle;
 			}
-
-			// Debug.Log("anima " + alpha + "," + nowTextScale + "," + nowNumScale);
 		}
 
 		if (isMiddleAnimation) {
-
 			float nowNumScale = maxNumScale - GetTimeDuration(startTimer, middleAnimInterval)*Mathf.Abs(defaultNumScale - maxNumScale);
 			numLabel.GetComponent<UIStretch>().relativeSize.y = nowNumScale;
 			if (Mathf.Abs(nowNumScale - defaultNumScale) < 0.0001f) {
@@ -195,34 +211,70 @@ public class ComboManager : MonoBehaviour {
 			}
 		}
 
-		/*
-		if (isLightAnimation) {
-			lightTimer += Time.deltaTime;
+		if (isBeatAnimation) {
+			beatTimer += Time.deltaTime;
+			if (beatTimer < beatMoveInterval) {
+				float degree = GetTimeDuration(beatTimer, beatMoveInterval);
 
-			if (lightTimer < (lightAnimSpan/2)) {
-				light.GetComponent<UISprite>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, GetTimeDuration(lightTimer,lightAnimSpan/2));
-				light.GetComponent<UIStretch>().relativeSize.x = lightMinSize + ((lightMaxSize - lightMinSize)*GetTimeDuration(lightTimer,lightAnimSpan/2));
-			} else {
-				light.GetComponent<UISprite>().color = new Color (nowComboColor.r, nowComboColor.g, nowComboColor.b, 1.0f - GetTimeDuration(lightTimer-lightAnimSpan/2,lightAnimSpan/2));
-				light.GetComponent<UIStretch>().relativeSize.x = lightMinSize + ((lightMaxSize - lightMinSize)*(1.0f - GetTimeDuration(lightTimer-lightAnimSpan/2,lightAnimSpan/2)));
+				beatSprite.GetComponent<UISprite>().color = new Color (1, 1, 1, GetTimeDuration(beatTimer, beatMoveInterval, "DecreasingCurve"));
+				beatSprite.GetComponent<UIAnchor>().relativeOffset.y = defaultBeatOffsetY + beatMoveDistance - (degree * beatMoveDistance);
+				beatSprite.GetComponent<UIStretch>().relativeSize.x = defaultBeatScale * GetTimeDuration(beatTimer, beatMoveInterval, "Shake");
+
+			} else if (beatTimer > beatBiginHide) {
+				float time = beatTimer - beatBiginHide;
+				beatSprite.GetComponent<UISprite>().color = new Color (1, 1, 1, 1 - GetTimeDuration(time, beatHideInterval, "Linear"));
 			}
 
-			if (lightTimer >= lightAnimSpan) {
-				lightTimer = 0.0f;
-				isLightAnimation = false;
+			if (beatTimer > beatBiginHide + beatHideInterval) {
+				beatTimer = 0.0f;
+				isBeatAnimation = false;
 			}
 		}
-		*/
+
+		if (isFullComboAnimation) {
+
+
+		}
 
 	}
 
-	private float GetTimeDuration(float time, float duration) {
+	private float GetTimeDuration(float time, float duration, string type = "Sin") {
 
 		float x;
-		if (time < duration)
-			x = Mathf.Sin(Mathf.PI/2.0f/duration*time);
-		else
-			x = 1.0f;
+		switch(type) {
+		case "Sin":
+			if (time < duration)
+				x = Mathf.Sin(Mathf.PI/2.0f/duration*time);
+			else
+				x = 1.0f;
+			break;
+			 
+		case "Linear":
+			if (time < duration) {
+				x = (1.0f/duration)*time;
+			} else {
+				x = 1.0f;
+			}
+			break; 
+
+		case "Shake":
+			float t = time*3.3f/duration - 0.275f;
+			x = Mathf.Exp(-2*t)*Mathf.Sin(Mathf.PI*t) + 1;
+			break;
+		
+		case "IncreasingCurve":
+			x = - (Mathf.Sqrt(1 - Mathf.Pow(time/duration,2))) + 1;
+			break;
+
+		case "DecreasingCurve":
+			x = Mathf.Sqrt(1 - Mathf.Pow((time-duration)/duration,2));
+			break;
+
+		default:
+			x = 0.0f;
+			Debug.LogError("GetTimeDuration does not support type :" + type);
+			break;
+		}
 
 		return x;
 		// return (1-(1/(20*startTimer/duration+1)));
@@ -231,16 +283,19 @@ public class ComboManager : MonoBehaviour {
 
 	public int GetCombo (MusicData.NoteData.NotePhase type){
 		bool ok = true;
-
 		//  Normal , Great , Ok , Bad , Miss
 		switch (type){
+			/*
 			case MusicData.NoteData.NotePhase.Miss:
 			beatSprite.GetComponent<UISprite>().spriteName = "";
 			ok = false;
 			break;
+			*/
 
 			case MusicData.NoteData.NotePhase.Bad:
 			beatSprite.GetComponent<UISprite>().spriteName = "combo_bad";
+			nowComboColor = badBeatColor;
+			isFullCombo = false;
 			ok = false;
 			break;
 
@@ -259,11 +314,25 @@ public class ComboManager : MonoBehaviour {
 			break;
 		}	
 
-		beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,1);
+		// beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,1);
+		isBeatAnimation = true;
+		beatTimer = 0.0f;
 
 		SwitchState (ok);
 
 		return comboSum;
+	}
+
+	public void ResetCombo() {
+		beatSprite.GetComponent<UISprite>().color = new Color(1,1,1,0);
+		numLabel.GetComponent<UILabel>().color = new Color(1,1,1,0);
+		comboLabel.GetComponent<UILabel>().color = new Color(1,1,1,0);
+	}
+
+	public void ShowFullCombo () {
+		if (isFullCombo) {
+
+		}
 	}
 
 	// miss, badのときfalse, それ以外true (成功判定)
@@ -272,7 +341,9 @@ public class ComboManager : MonoBehaviour {
 		if (!ok) {
 			comboSum = 0;
 			if ((animationPhase != AnimationPhase.End) && (animationPhase != AnimationPhase.Nothing)) {
+
 				startTimer = 0.0f;
+
 				DefaultenGUI();
 				animationPhase = AnimationPhase.End;
 				isEndAnimation = true;
@@ -349,16 +420,16 @@ public class ComboManager : MonoBehaviour {
 			Instantiate(lightExpo1);
 		}
 
-		if (comboSum == 50) {
-			nowComboColor = combo[1];
-		} else if (comboSum == 100) {
-			nowComboColor = combo[2];
-		} else if (comboSum == 200) {
-			nowComboColor = combo[3];
-		} else if (comboSum == 300) {
-			nowComboColor = combo[4];
-		} else if (comboSum == 1){
-			nowComboColor = combo[0];
+		if (50 <= comboSum && comboSum < 100) {
+			nowComboColor = comboColor[1];
+		} else if (100 <= comboSum && comboSum < 200) {
+			nowComboColor = comboColor[2];
+		} else if (200 <= comboSum && comboSum < 300) {
+			nowComboColor = comboColor[3];
+		} else if (300 <= comboSum) {
+			nowComboColor = comboColor[4];
+		} else if (comboSum < 50){
+			nowComboColor = comboColor[0];
 		} 
 
 		numLabel.GetComponent<UILabel>().text = comboSum.ToString();
